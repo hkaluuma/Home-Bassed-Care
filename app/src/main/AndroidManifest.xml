@@ -24,7 +24,7 @@
         </activity>
         <activity
             android:name=".AddPatientActivity"
-            android:label="@string/title_activity_add_patient"
+            android:label="Add Patient"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".PatientsActivity"
@@ -41,11 +41,11 @@
         <activity android:name=".ForgotPasswordActivity" />
         <activity
             android:name=".CreateAccountActivity"
-            android:label="CreateAccount"
+            android:label="Create Account"
             android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
+            android:label="login"
             android:theme="@style/Theme.Nav_drawer.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

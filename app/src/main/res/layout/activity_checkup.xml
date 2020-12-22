@@ -9,6 +9,23 @@
     android:padding="10dp"
     tools:context=".CheckupActivity">
 
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Patient Name"
+        android:textColor="#b3b3b3"
+        android:textSize="18dp"/>
+
+    <Spinner
+        android:id="@+id/spinnerpatient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="Patients' Name"
+        android:textAppearance="?android:textAppearanceMedium" />
+
     <EditText
         android:id="@+id/edittextcough"
         android:layout_width="match_parent"

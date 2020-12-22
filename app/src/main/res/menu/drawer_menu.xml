@@ -7,9 +7,6 @@
         <item android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
             android:title="Home" />
-        <item android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_profile"
-            android:title="Profile" />
         <item android:id="@+id/nav_addpatient"
             android:icon="@drawable/ic_add_patient"
             android:title="Add Patient" />
@@ -19,6 +16,9 @@
         <item android:id="@+id/nav_checkup"
             android:icon="@drawable/ic_checkup"
             android:title="Daily Checkup" />
+        <item android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_profile"
+            android:title="Profile" />
 
 
     </group>
