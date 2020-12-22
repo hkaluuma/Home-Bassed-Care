@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    android:padding="10dp"
+    tools:context=".CheckupActivity">
+
+    <EditText
+        android:id="@+id/edittextcough"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_weight="1"
+        android:inputType="text"
+        android:hint="Cough" />
+
+
+    <EditText
+        android:id="@+id/editTextflu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Flu"/>
+
+
+    <EditText
+        android:id="@+id/editTextfever"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Fever"
+        android:inputType="text" />
+
+    <!-- <Spinner
+         android:id="@+id/spinnerpatientlocation"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:hint="Location"
+         android:layout_weight="1"
+         android:textAppearance="?android:textAppearanceSmall"/> -->
+
+
+    <EditText
+        android:id="@+id/editTextheadache"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_weight="1"
+        android:inputType="textPersonName"
+        android:hint="Headache" />
+
+    <EditText
+        android:id="@+id/editTextgeneralbodyweakness"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="General Body weakness"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edittextbodypain"
+        android:hint="General Body Pains"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_weight="1"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTexttemperature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_weight="1"
+        android:inputType="number"
+        android:hint="Temperature" />
+
+    <Button
+        android:id="@+id/buttonsubmitcheckup"
+        android:layout_weight="0.3"
+        android:layout_width="match_parent"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:text="Submit Patient Checkup" />
+
+    <TextView
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+</LinearLayout>
