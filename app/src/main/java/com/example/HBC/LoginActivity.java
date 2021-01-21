@@ -76,13 +76,14 @@ public class LoginActivity extends AppCompatActivity {
         buttonlogin.setOnClickListener(new View.OnClickListener() {
 
             //new code segment
-            public void onClick(View view) {
+          /*  public void onClick(View view) {
                 Intent mainactivityintent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(mainactivityintent);
             }// end of new code segment
+            */
 
 
-           /* @Override
+           @Override
             public void onClick(View view) {
                 pass = editTextpassword.getText().toString();
                 username = editTextusername.getText().toString();
@@ -106,13 +107,32 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                 }
-            } */
+            }
         });
 
     }
 
 
-    //async task class to create new business
+    //method to check internet availability(WiFi and MobileData)
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
+
+
+    //async task class to login
     class CreateLogin extends AsyncTask<String, String, String> {
 
         String responcefromphp;
@@ -147,7 +167,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 DefaultHttpClient httpclient = new DefaultHttpClient();
 
-                HttpPost httppost = new HttpPost("http://127.0.0.1:8081/hbc/login.php");
+                HttpPost httppost = new HttpPost("http://192.168.43.21:8081/hbc/login.php");
+               //HttpPost httppost = new HttpPost("http://44.236.122.133/hbc/login.php");
 
                 ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 
@@ -188,36 +209,23 @@ public class LoginActivity extends AppCompatActivity {
 
             if (responcefromphp.equals("1")) {
 
-                Toast.makeText(LoginActivity.this, "Submission Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                 Intent loginintent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(loginintent);
 
+            } else if(responcefromphp.equals("0")){
+
+                Toast.makeText(LoginActivity.this, "Login Failed customer not Registered.", Toast.LENGTH_SHORT).show();
+
             } else {
-
-                Toast.makeText(LoginActivity.this, "Submission Fail, Try Again", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(LoginActivity.this, "Login Failed, contact admin or Try Again", Toast.LENGTH_SHORT).show();
             }
+
         }
 
     }//end of asnck task
 
-    //method to check internet availability(WiFi and MobileData)
-    private boolean haveNetworkConnection() {
-        boolean haveConnectedWifi = false;
-        boolean haveConnectedMobile = false;
 
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
-        for (NetworkInfo ni : netInfo) {
-            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
-                if (ni.isConnected())
-                    haveConnectedWifi = true;
-            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
-                if (ni.isConnected())
-                    haveConnectedMobile = true;
-        }
-        return haveConnectedWifi || haveConnectedMobile;
-    }
 
 
 }
