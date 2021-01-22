@@ -131,14 +131,14 @@
 
         <Button
             android:id="@+id/buttonlogin"
+            android:layout_weight="0.3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/colorAccent"
-            android:padding="18dp"
-            android:text="Login"
+            android:textStyle="bold"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:background="@drawable/custom_button"
+            android:layout_height="60dp"
+            android:text="Login"/>
+
 
         <TextView
             android:layout_width="match_parent"

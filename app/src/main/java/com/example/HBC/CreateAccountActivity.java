@@ -32,25 +32,76 @@ import java.util.ArrayList;
 public class CreateAccountActivity extends AppCompatActivity {
 
     //global variables
-    String selectedlocation, username, password, confirmpassword, fullname, phonenumber, email, location;
+    String selectedlocation, username, password, confirmpassword, fullname, phonenumber, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
-       //referencing the spiner in java
-        Spinner spinnerlocation = findViewById(R.id.spinnerlocation);
        //making reference to the other widjets
-        EditText edittextfullname =  findViewById(R.id.editTextfullname);
-        EditText edittextphone =  findViewById(R.id.editTextphoneno);
-        EditText editTextemail =  findViewById(R.id.editTextemail);
-        EditText editTextusername =  findViewById(R.id.editTextusername);
-        EditText editTextccpassword =  findViewById(R.id.editTextccpassword);
-        EditText edtxconfirmpassword =  findViewById(R.id.edtxconfirmpassword);
+       final EditText edittextfullname =  findViewById(R.id.editTextfullname);
+       final EditText edittextphone =  findViewById(R.id.editTextphoneno);
+       final EditText editTextemail =  findViewById(R.id.editTextemail);
+       final EditText editTextusername =  findViewById(R.id.editTextusername);
+       final EditText editTextccpassword =  findViewById(R.id.editTextccpassword);
+       final EditText edtxconfirmpassword =  findViewById(R.id.edtxconfirmpassword);
+        //adding reference to the button in xml
+        Button buttonccregister = findViewById(R.id.buttonregister);
 
+        //calling method to display spinner
+        displaySpinner();
+
+        buttonccregister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fullname = edittextfullname.getText().toString();
+                phonenumber = edittextphone.getText().toString();
+                email = editTextemail.getText().toString();
+                username = editTextusername.getText().toString();
+                password = editTextccpassword.getText().toString();
+                confirmpassword = edtxconfirmpassword.getText().toString();
+
+                if (fullname.isEmpty()) {
+                    edittextfullname.setError("Full namee are required");
+                }else if (phonenumber.isEmpty()) {
+                    edittextphone.setError("Phone number is required");
+                }else if (email.isEmpty()) {
+                    editTextemail.setError("Email is required");
+                }else if (selectedlocation.equals("Not Specified")) {
+                    Toast.makeText(CreateAccountActivity.this, "Select the location", Toast.LENGTH_SHORT).show();
+                }else if (username.isEmpty()) {
+                    editTextusername.setError("User Name is Required");
+                }else if (password.isEmpty()) {
+                    editTextccpassword.setError("Password is required");
+                }else if (confirmpassword.isEmpty()) {
+                    edtxconfirmpassword.setError("Password confirmation is required");
+                }else if (!password.equals(confirmpassword)){
+                    //edtxconfirmpassword.setError("Passwords not matching");
+                    Toast.makeText(CreateAccountActivity.this, "Passwords not matching", Toast.LENGTH_SHORT).show();
+                }else {
+
+                    if (haveNetworkConnection()) {
+                        // connected
+                        new RegisterClass().execute();
+                    } else {
+                        // not connected
+                        Toast.makeText(CreateAccountActivity.this, "No internet Connection", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+        });
+    }
+
+
+
+
+    public void displaySpinner() {
+        //referencing the spiner in java
+        final Spinner spinnerlocation = findViewById(R.id.spinnerlocation);
         //data source
-        String[] locationNames = {"Kampala","Wakiso","Mukono","Jinja","Kiryandongo","Karamonja"};
+        final String[] locationNames = {"Kampala","Wakiso","Mukono","Jinja","Kiryandongo","Karamonja"};
         //create array adapter
         ArrayAdapter<String> spinneradapter = new ArrayAdapter<String>(CreateAccountActivity.this,R.layout.spinneritemdesgin,R.id.textViewSpinneritem,locationNames);
         //assign array adapter to a spinner
@@ -68,72 +119,6 @@ public class CreateAccountActivity extends AppCompatActivity {
             }
         });
 
-        //adding reference to the button in xml
-        Button buttonccregister = findViewById(R.id.buttonregister);
-        buttonccregister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                password = editTextccpassword.getText().toString();
-                username = editTextusername.getText().toString();
-                fullname = edittextfullname.getText().toString();
-                confirmpassword = edtxconfirmpassword.getText().toString();
-                email = editTextemail.getText().toString();
-                phonenumber = edittextphone.getText().toString();
-               // selectedlocation = edtxconfirmpassword.getText().toString();
-
-
-                if (username.isEmpty()) {
-                    editTextusername.setError("User Name is Required");
-                }
-                if (password.isEmpty()) {
-                    editTextccpassword.setError("Password is required");
-                }
-                if (confirmpassword.isEmpty()) {
-                    editTextccpassword.setError("Password confirmation is required");
-                }
-                if (fullname.isEmpty()) {
-                    editTextccpassword.setError("Full namee are required");
-                }
-                if (email.isEmpty()) {
-                    editTextccpassword.setError("Email is required");
-                }
-                if (phonenumber.isEmpty()) {
-                editTextccpassword.setError("Phone number is required");
-                }else {
-
-                    if (haveNetworkConnection()) {
-                        // connected
-                        new CreateAccountActivity.RegisterClass().execute();
-                    } else {
-                        // not connected
-                        Toast.makeText(CreateAccountActivity.this, "No internet Connection", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                //Intent checkemptyintent = new Intent(CreateAccountActivity.this, LoginActivity.class);
-                //startActivity(checkemptyintent);
-            }
-        });
-    }
-
-
-    //method to check internet availability(WiFi and MobileData)
-    private boolean haveNetworkConnection() {
-        boolean haveConnectedWifi = false;
-        boolean haveConnectedMobile = false;
-
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
-        for (NetworkInfo ni : netInfo) {
-            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
-                if (ni.isConnected())
-                    haveConnectedWifi = true;
-            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
-                if (ni.isConnected())
-                    haveConnectedMobile = true;
-        }
-        return haveConnectedWifi || haveConnectedMobile;
     }
 
     //creating async inner class
@@ -151,6 +136,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             pdialog.setIndeterminate(false);//hold till procees is done
             pdialog.setCancelable(false);// set screen in freez
             pdialog.show();
+
         }
 
         @Override
@@ -221,5 +207,24 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
 
     }//ending the async class
+
+    //method to check internet availability(WiFi and MobileData)
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
+
 
 }

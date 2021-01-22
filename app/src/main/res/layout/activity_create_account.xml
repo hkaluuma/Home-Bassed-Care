@@ -12,7 +12,7 @@
     <EditText
         android:id="@+id/editTextfullname"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:ems="10"
         android:layout_weight="1"
         android:inputType="textCapWords"
@@ -79,7 +79,8 @@
         android:layout_width="match_parent"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:layout_height="wrap_content"
+        android:background="@drawable/custom_button"
+        android:layout_height="60dp"
         android:text="Register" />
 
     <TextView

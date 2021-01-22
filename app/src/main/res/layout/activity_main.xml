@@ -46,7 +46,7 @@
           android:id="@+id/buttonSearchPatient"
           android:textColor="@color/white"
           android:textStyle="bold"
-          android:background="@color/colorPrimary"/>
+          android:background="@drawable/custom_button" />
 
 
       <ListView
