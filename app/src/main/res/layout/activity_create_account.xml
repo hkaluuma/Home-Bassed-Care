@@ -10,7 +10,7 @@
     tools:context=".CreateAccountActivity">
 
     <EditText
-        android:id="@+id/editTextccfullname"
+        android:id="@+id/editTextfullname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -20,7 +20,7 @@
 
 
     <EditText
-        android:id="@+id/editTextccphoneno"
+        android:id="@+id/editTextphoneno"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -30,14 +30,13 @@
 
 
     <EditText
-        android:id="@+id/editTextccemail"
-        android:layout_weight="1"
+        android:id="@+id/editTextemail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress" />
-
 
     <Spinner
         android:id="@+id/spinnerlocation"
@@ -48,7 +47,7 @@
         android:textAppearance="?android:textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/editTextccusername"
+        android:id="@+id/editTextusername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -66,7 +65,7 @@
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/editTextccconfirmpassword"
+        android:id="@+id/edtxconfirmpassword"
         android:hint="Confirm Password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,7 +74,7 @@
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/buttonccregister"
+        android:id="@+id/buttonregister"
         android:layout_weight="0.3"
         android:layout_width="match_parent"
         android:textStyle="bold"

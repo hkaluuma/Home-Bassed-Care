@@ -74,15 +74,12 @@ public class LoginActivity extends AppCompatActivity {
 
         Button buttonlogin = findViewById(R.id.buttonlogin);
         buttonlogin.setOnClickListener(new View.OnClickListener() {
-
             //new code segment
           /*  public void onClick(View view) {
                 Intent mainactivityintent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(mainactivityintent);
             }// end of new code segment
             */
-
-
            @Override
             public void onClick(View view) {
                 pass = editTextpassword.getText().toString();
