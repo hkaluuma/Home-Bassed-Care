@@ -163,9 +163,8 @@ public class LoginActivity extends AppCompatActivity {
                 // create a http default client - initialize the HTTp client
 
                 DefaultHttpClient httpclient = new DefaultHttpClient();
-
-                HttpPost httppost = new HttpPost("http://192.168.43.21:8081/hbc/login.php");
-               //HttpPost httppost = new HttpPost("http://44.236.122.133/hbc/login.php");
+                //HttpPost httppost = new HttpPost("http://192.168.43.21:8081/hbc/login.php");
+               HttpPost httppost = new HttpPost("http://192.168.43.20:8081/hbc/login.php");
 
                 ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 

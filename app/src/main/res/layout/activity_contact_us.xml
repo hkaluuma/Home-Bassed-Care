@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingRight="7dp"
+    android:paddingLeft="3dp"
+    android:orientation="vertical"
+    tools:context=".ContactUsActivity">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="178dp"
+        app:srcCompat="@drawable/account_icon"
+        tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5"
+        />
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Get in touch With Us"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="90dp"
+        android:layout_height="5dp"
+        android:paddingBottom="10dp"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:id="@+id/buttonsocialmediahandle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:paddingLeft="7dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/custom_button"
+        android:text="Social Media Handle"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_gravity="start"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/buttonFacebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="7dp"
+        android:paddingRight="5dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/custom_button"
+        android:text="Facebook"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_gravity="start"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/buttonTwitter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/custom_button"
+        android:text="Twitter"
+
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_gravity="start"
+        android:paddingLeft="7dp"
+        android:paddingRight="5dp"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/buttonInstagran"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/custom_button"
+        android:text="Instagram"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:paddingLeft="7dp"
+        android:paddingRight="5dp"
+        android:layout_gravity="start"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/buttonPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_margin="5dp"
+        android:background="@drawable/custom_button"
+        android:drawableRight="@drawable/ic_baseline_call_24"
+        android:paddingLeft="7dp"
+        android:paddingRight="5dp"
+        android:text="Call Us"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonIDIlocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_margin="5dp"
+        android:background="@drawable/custom_button"
+        android:paddingLeft="7dp"
+        android:paddingRight="5dp"
+        android:text="IDI Location"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+</LinearLayout>

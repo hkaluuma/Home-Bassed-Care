@@ -1,14 +1,20 @@
 package com.example.HBC;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     //variables
     ListView listView;
+    //variable for the call funcitonality
+    //private static final int REQUEST_CALL = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +95,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } */
     }
 
+
+   /* @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == REQUEST_CALL){
+            if(grantResults.length > 0 && grantResults[0]== PackageManager.PERMISSION_GRANTED){
+                makecall();
+            }else{
+                Toast.makeText(this, "Permission Denied",Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    } */
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
@@ -101,31 +123,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                // startActivity(nav_messageintent);
                 break;
             case R.id.nav_profile:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
-               //startActivity(new Intent(getApplicationContext(), ProfileFragment.class));
                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                //Intent navprofileintent = new Intent(MainActivity.this, ProfileFragment.class);
-                //startActivity(navprofileintent);
-
                 break;
+
             case R.id.nav_patients:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PatientsFragment()).commit();
-                //startActivity(new Intent(getApplicationContext(), PatientsFragment.class));
                 startActivity(new Intent(MainActivity.this, PatientsActivity.class));
-                //Intent navpatientsintent = new Intent(MainActivity.this, PatientsFragment.class);
-                //startActivity(navpatientsintent);
+                break;
 
-                break;
             case R.id.nav_addpatient:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AddPatientFragment()).commit();
-                //startActivity(new Intent(getApplicationContext(), AddPatientFragment.class));
                 startActivity(new Intent(MainActivity.this, AddPatientActivity.class));
-                //Intent navaddpatientintent = new Intent(MainActivity.this, AddPatientFragment.class);
-                //startActivity(navaddpatientintent);
                 break;
+
             case R.id.nav_call:
-                Toast.makeText(this,"Call", Toast.LENGTH_SHORT).show();
+                //makecall();
+                startActivity(new Intent(MainActivity.this, ContactUsActivity.class));
                 break;
+
             case R.id.nav_chat:
                 Toast.makeText(this,"Message", Toast.LENGTH_SHORT).show();
                 break;
@@ -133,8 +146,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+
+        //to handle details after the call
+
+
+
     }
 
+   /*//function make call
+    public void makecall(){
+    if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+        ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+    }else{
+        String dial = "256726046629";
+        startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
+    }
+    }//ending function */
+
+    //another function
     public void onBackPressed(){
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
