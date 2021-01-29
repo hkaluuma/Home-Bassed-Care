@@ -5,16 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
@@ -33,7 +36,7 @@ public class CheckupActivity extends AppCompatActivity {
 
     //global variables
     String selected_patient, selected_chills, patienttemperature, selected_chestpain, selected_headache, selected_cough, selected_difficultbreathing,
-            selected_fatigue, selected_runnynose, selected_diarrhea;
+            selected_fatigue, selected_runnynose, selected_diarrhea, selected_throat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class CheckupActivity extends AppCompatActivity {
         displaySpinnerfatigue();
         displaySpinnerrunnynose();
         displaySpinnerdiarrhea();
+        displaySpinnerthroat();
 
 
         buttonsubmitcheckup.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +67,9 @@ public class CheckupActivity extends AppCompatActivity {
 
 
                 if (patienttemperature.isEmpty()) {
-                    editTexttemperature.setError("Patient Full names are required");
+                    editTexttemperature.setError("Patient temperature needed.");
+                }else if (selected_patient.equals("Not Specified")) {
+                    Toast.makeText(CheckupActivity.this, "Patient not selected", Toast.LENGTH_SHORT).show();
                 } else if (selected_chestpain.equals("Not Specified")) {
                     Toast.makeText(CheckupActivity.this, "Chest Pain not specified", Toast.LENGTH_SHORT).show();
                 } else if (selected_chills.equals("Not Specified")){
@@ -80,11 +86,14 @@ public class CheckupActivity extends AppCompatActivity {
                     Toast.makeText(CheckupActivity.this, "Headache status not specified", Toast.LENGTH_SHORT).show();
                 } else if (selected_runnynose.equals("Not Specified")) {
                     Toast.makeText(CheckupActivity.this, "Running nose status not specified", Toast.LENGTH_SHORT).show();
-                } else {
+                }else if (selected_throat.equals("Not Specified")) {
+                    Toast.makeText(CheckupActivity.this, "Sore throat status not specified", Toast.LENGTH_SHORT).show();
+                }
+                else {
 
                     if (haveNetworkConnection()) {
                         // connected
-                       // new CheckupActivity.CheckupClass().execute();
+                        new CheckupActivity.CheckupClass().execute();
                     } else {
                         // not connected
                         Toast.makeText(CheckupActivity.this, "No internet Connection", Toast.LENGTH_SHORT).show();
@@ -96,9 +105,47 @@ public class CheckupActivity extends AppCompatActivity {
 
     }
 
+    private void displaySpinnerthroat() {
+        //referencing the spiner in java
+        Spinner spinnerthroat = findViewById(R.id.spinnerthroat);
+        //disease
+        String[] throatStatus = {"Do you have a sore throat?","Yes","No"};
+        //create array adapter
+        ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this,R.layout.spinneritemdesign2,R.id.textViewSpinneritem2,throatStatus) {
+            @Override
+            public boolean isEnabled(int position) {
+                TextView tv = findViewById(R.id.textViewSpinneritem2);
+                if (position == 0) {
+                    // Disable the first item from Spinner
+                    tv.setTextColor(Color.GRAY);
+                    return false;
+                } else {
+                    tv.setTextColor(Color.BLACK);
+                    return true;
+                }
+            }
+        };
+
+        //assign array adapter to a spinner
+        spinnerthroat.setAdapter(spinneradaptera);
+        //spinner item listener for disease
+        spinnerthroat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selected_throat=throatStatus[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selected_throat = "Not Specified";
+
+            }
+        });
+
+    }
 
 
-        public void displaySpinnerPatient(){
+    public void displaySpinnerPatient(){
             Spinner spinnerpatient = findViewById(R.id.spinnerpatient);
             //data source
             String[] patientNames = {"HILLARY","MOSES","EDWARD","KENNETH","TOMMY","JEAN","ALLAN"};
@@ -127,9 +174,39 @@ public class CheckupActivity extends AppCompatActivity {
             //referencing the spiner in java
             Spinner spinnerchills = findViewById(R.id.spinnerchills);
             //disease
-            String[] chillsStatus = {"Yes","No"};
+            String[] chillsStatus = {"Do you have Chills?","Yes","No"};
             //create array adapter
-            ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this,R.layout.spinneritemdesign2,R.id.textViewSpinneritem2,chillsStatus);
+            ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this,R.layout.spinneritemdesign2,R.id.textViewSpinneritem2,chillsStatus) {
+                @Override
+                public boolean isEnabled(int position) {
+                    TextView tv = findViewById(R.id.textViewSpinneritem2);
+                    if (position == 0) {
+                        // Disable the first item from Spinner
+                        // First item will be use for hint
+                        tv.setTextColor(Color.GRAY);
+                        return false;
+                    } else {
+                        tv.setTextColor(Color.BLACK);
+                        return true;
+                    }
+                }
+                //@Override
+                /* public View getDropDownView(int position, View convertView,
+                                            ViewGroup parent) {
+                    View view = super.getDropDownView(position, convertView, parent);
+                   // TextView tv;
+                    // tv = (TextView) view;
+                    TextView tv = findViewById(R.id.textViewSpinneritem2);
+                    if (position == 0) {
+                        // Set the hint text color gray
+                        tv.setTextColor(Color.GRAY);
+                        //spinnerchills.setTextColor(Color.GRAY);
+                    } else {
+                        tv.setTextColor(Color.BLACK);
+                    }
+                    return view;
+                } */
+            };
             //assign array adapter to a spinner
             spinnerchills.setAdapter(spinneradaptera);
             //spinner item listener for disease
@@ -152,9 +229,23 @@ public class CheckupActivity extends AppCompatActivity {
         //referencing the spiner in java
         Spinner spinnerchestpain = findViewById(R.id.spinner_new_chest_pain);
         //disease
-        String[] chestpainStatus = {"Yes","No"};
+        String[] chestpainStatus = {"Do you have chest pain?","Yes","No"};
         //create array adapter
-        ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this,R.layout.spinneritemdesign2,R.id.textViewSpinneritem2,chestpainStatus);
+        ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this,R.layout.spinneritemdesign2,R.id.textViewSpinneritem2,chestpainStatus) {
+            @Override
+            public boolean isEnabled(int position) {
+                TextView tv = findViewById(R.id.textViewSpinneritem2);
+                if (position == 0) {
+                    // Disable the first item from Spinner
+                    tv.setTextColor(Color.GRAY);
+                    return false;
+                } else {
+                    tv.setTextColor(Color.BLACK);
+                    return true;
+                }
+            }
+        };
+
         //assign array adapter to a spinner
         spinnerchestpain.setAdapter(spinneradaptera);
         //spinner item listener for disease
@@ -177,9 +268,22 @@ public class CheckupActivity extends AppCompatActivity {
         //referencing the spiner in java
         Spinner spinnerheadache = findViewById(R.id.spinnerHeadache);
         //disease
-        String[] headacheStatus = {"Yes","No"};
+        String[] headacheStatus = {"Do you have headache?","Yes","No"};
         //create array adapter
-        ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this,R.layout.spinneritemdesign2,R.id.textViewSpinneritem2,headacheStatus);
+        ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this,R.layout.spinneritemdesign2,R.id.textViewSpinneritem2,headacheStatus){
+            @Override
+            public boolean isEnabled(int position) {
+                TextView tv = findViewById(R.id.textViewSpinneritem2);
+                if (position == 0) {
+                    // Disable the first item from Spinner
+                    tv.setTextColor(Color.GRAY);
+                    return false;
+                } else {
+                    tv.setTextColor(Color.BLACK);
+                    return true;
+                }
+            }
+        };
         //assign array adapter to a spinner
         spinnerheadache.setAdapter(spinneradaptera);
         //spinner item listener for disease
@@ -203,9 +307,22 @@ public class CheckupActivity extends AppCompatActivity {
         //referencing the spiner in java
         Spinner spinnercough = findViewById(R.id.spinnerCough);
         //disease
-        String[] CoughStatus = {"Yes","No"};
+        String[] CoughStatus = {"Do you have cough?","Yes","No"};
         //create array adapter
-        ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this,R.layout.spinneritemdesign2,R.id.textViewSpinneritem2,CoughStatus);
+        ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this,R.layout.spinneritemdesign2,R.id.textViewSpinneritem2,CoughStatus){
+            @Override
+            public boolean isEnabled(int position) {
+                TextView tv = findViewById(R.id.textViewSpinneritem2);
+                if (position == 0) {
+                    // Disable the first item from Spinner
+                    tv.setTextColor(Color.GRAY);
+                    return false;
+                } else {
+                    tv.setTextColor(Color.BLACK);
+                    return true;
+                }
+            }
+        };
         //assign array adapter to a spinner
         spinnercough.setAdapter(spinneradaptera);
         //spinner item listener for disease
@@ -228,9 +345,22 @@ public class CheckupActivity extends AppCompatActivity {
         //referencing the spiner in java
         Spinner spinnerbreathing = findViewById(R.id.spinnerdifficulty_breathing);
         //disease
-        String[] breathingStatus = {"Yes","No"};
+        String[] breathingStatus = {"Do you have any difficulty breathing?","Yes","No"};
         //create array adapter
-        ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this,R.layout.spinneritemdesign2,R.id.textViewSpinneritem2,breathingStatus);
+        ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this,R.layout.spinneritemdesign2,R.id.textViewSpinneritem2,breathingStatus){
+            @Override
+            public boolean isEnabled(int position) {
+                TextView tv = findViewById(R.id.textViewSpinneritem2);
+                if (position == 0) {
+                    // Disable the first item from Spinner
+                    tv.setTextColor(Color.GRAY);
+                    return false;
+                } else {
+                    tv.setTextColor(Color.BLACK);
+                    return true;
+                }
+            }
+        };
         //assign array adapter to a spinner
         spinnerbreathing.setAdapter(spinneradaptera);
         //spinner item listener for disease
@@ -253,9 +383,23 @@ public class CheckupActivity extends AppCompatActivity {
         //referencing the spiner in java
         Spinner spinnerfatigue = findViewById(R.id.spinnerFatigue);
         //disease
-        String[] fatigueStatus = {"Yes", "No"};
+        String[] fatigueStatus = {"Are you feeling any fatigue?","Yes", "No"};
         //create array adapter
-        ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this, R.layout.spinneritemdesign2, R.id.textViewSpinneritem2, fatigueStatus);
+        ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this, R.layout.spinneritemdesign2, R.id.textViewSpinneritem2, fatigueStatus)
+        {
+            @Override
+            public boolean isEnabled(int position) {
+                TextView tv = findViewById(R.id.textViewSpinneritem2);
+                if (position == 0) {
+                    // Disable the first item from Spinner
+                    tv.setTextColor(Color.GRAY);
+                    return false;
+                } else {
+                    tv.setTextColor(Color.BLACK);
+                    return true;
+                }
+            }
+        };
         //assign array adapter to a spinner
         spinnerfatigue.setAdapter(spinneradaptera);
         //spinner item listener for disease
@@ -277,9 +421,22 @@ public class CheckupActivity extends AppCompatActivity {
         //referencing the spiner in java
         Spinner spinnernose = findViewById(R.id.spinnerRunny_nose);
         //disease
-        String[] noseStatus = {"Yes", "No"};
+        String[] noseStatus = {"Are you having a running nose?","Yes", "No"};
         //create array adapter
-        ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this, R.layout.spinneritemdesign2, R.id.textViewSpinneritem2, noseStatus);
+        ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this, R.layout.spinneritemdesign2, R.id.textViewSpinneritem2, noseStatus){
+            @Override
+            public boolean isEnabled(int position) {
+                TextView tv = findViewById(R.id.textViewSpinneritem2);
+                if (position == 0) {
+                    // Disable the first item from Spinner
+                    tv.setTextColor(Color.GRAY);
+                    return false;
+                } else {
+                    tv.setTextColor(Color.BLACK);
+                    return true;
+                }
+            }
+        };
         //assign array adapter to a spinner
         spinnernose.setAdapter(spinneradaptera);
         //spinner item listener for disease
@@ -301,9 +458,22 @@ public class CheckupActivity extends AppCompatActivity {
         //referencing the spiner in java
         Spinner spinnerdiarrhea = findViewById(R.id.spinnerdiarrhea);
         //disease
-        String[] diarrheaStatus = {"Yes", "No"};
+        String[] diarrheaStatus = {"Do you have diarrhea?","Yes", "No"};
         //create array adapter
-        ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this, R.layout.spinneritemdesign2, R.id.textViewSpinneritem2, diarrheaStatus);
+        ArrayAdapter<String> spinneradaptera = new ArrayAdapter<String>(CheckupActivity.this, R.layout.spinneritemdesign2, R.id.textViewSpinneritem2, diarrheaStatus){
+            @Override
+            public boolean isEnabled(int position) {
+                TextView tv = findViewById(R.id.textViewSpinneritem2);
+                if (position == 0) {
+                    // Disable the first item from Spinner
+                    tv.setTextColor(Color.GRAY);
+                    return false;
+                } else {
+                    tv.setTextColor(Color.BLACK);
+                    return true;
+                }
+            }
+        };
         //assign array adapter to a spinner
         spinnerdiarrhea.setAdapter(spinneradaptera);
         //spinner item listener for disease
@@ -351,19 +521,21 @@ public class CheckupActivity extends AppCompatActivity {
 
                     DefaultHttpClient httpclient = new DefaultHttpClient();
 
-                    HttpPost httppost = new HttpPost("http://192.168.43.21:8081/hbc/addpatient.php");
+                    HttpPost httppost = new HttpPost("http://192.168.43.20:8081/hbc/checkup.php");
 
                     ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 
-                  /*  nameValuePairs.add(new BasicNameValuePair("biz_disease", selected_disease));
-                    nameValuePairs.add(new BasicNameValuePair("biz_age", patientage));
-                    nameValuePairs.add(new BasicNameValuePair("biz_fullname", patientfullname));
-                    nameValuePairs.add(new BasicNameValuePair("biz_email", patientemail));
-                    nameValuePairs.add(new BasicNameValuePair("biz_phonenumber", patientphonenumber));
-                    nameValuePairs.add(new BasicNameValuePair("biz_location", selectedlocation));
-                    nameValuePairs.add(new BasicNameValuePair("biz_status", selected_status));
-                    */
-
+                    nameValuePairs.add(new BasicNameValuePair("biz_patient", selected_patient));
+                    nameValuePairs.add(new BasicNameValuePair("biz_chills", selected_chills));
+                    nameValuePairs.add(new BasicNameValuePair("biz_temperature", patienttemperature));
+                    nameValuePairs.add(new BasicNameValuePair("biz_chestpain", selected_chestpain));
+                    nameValuePairs.add(new BasicNameValuePair("biz_headache", selected_headache));
+                    nameValuePairs.add(new BasicNameValuePair("biz_cough", selected_cough));
+                    nameValuePairs.add(new BasicNameValuePair("biz_breathing", selected_difficultbreathing));
+                    nameValuePairs.add(new BasicNameValuePair("biz_fatigue", selected_fatigue));
+                    nameValuePairs.add(new BasicNameValuePair("biz_nose", selected_runnynose));
+                    nameValuePairs.add(new BasicNameValuePair("biz_diarrhea", selected_diarrhea));
+                    nameValuePairs.add(new BasicNameValuePair("biz_throat", selected_throat));
 
                     httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                     HttpResponse response = httpclient.execute(httppost);
@@ -397,7 +569,7 @@ public class CheckupActivity extends AppCompatActivity {
                 pdialog.dismiss();
 
                 if (responcefromphp.equals("1")) {
-                    Toast.makeText(CheckupActivity.this, "Submission Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CheckupActivity.this, "Checkup Submission Successful", Toast.LENGTH_SHORT).show();
                     Intent createaccountintent = new Intent(CheckupActivity.this, MainActivity.class);
                     startActivity(createaccountintent);
 
