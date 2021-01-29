@@ -10,13 +10,12 @@
     tools:context=".CheckupActivity">
 
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Patient Name"
         android:textColor="#b3b3b3"
-        android:textSize="18dp"/>
+        android:textSize="15dp"/>
 
     <Spinner
         android:id="@+id/spinnerpatient"
@@ -27,78 +26,82 @@
         android:textAppearance="?android:textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/edittextcough"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_weight="1"
-        android:inputType="text"
-        android:hint="Cough" />
-
-
-    <EditText
-        android:id="@+id/editTextflu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Flu"/>
-
-
-    <EditText
-        android:id="@+id/editTextfever"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Fever"
-        android:inputType="text" />
-
-    <!-- <Spinner
-         android:id="@+id/spinnerpatientlocation"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:hint="Location"
-         android:layout_weight="1"
-         android:textAppearance="?android:textAppearanceSmall"/> -->
-
-
-    <EditText
-        android:id="@+id/editTextheadache"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_weight="1"
-        android:inputType="textPersonName"
-        android:hint="Headache" />
-
-    <EditText
-        android:id="@+id/editTextgeneralbodyweakness"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="General Body weakness"
-        android:inputType="text" />
-
-    <EditText
-        android:id="@+id/edittextbodypain"
-        android:hint="General Body Pains"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_weight="1"
-        android:inputType="text" />
-
-    <EditText
         android:id="@+id/editTexttemperature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:layout_weight="1"
         android:inputType="number"
+        android:textSize="15dp"
         android:hint="Temperature" />
+
+    <Spinner
+        android:id="@+id/spinnerchills"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:hint="Chills" />
+
+
+    <Spinner
+        android:id="@+id/spinner_new_chest_pain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:hint="new Chest pain"/>
+
+    <Spinner
+        android:id="@+id/spinnerHeadache"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="Headache"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+
+    <Spinner
+        android:id="@+id/spinnerCough"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="Cough"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/spinnerdifficulty_breathing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="Difficulty breathing"
+        android:textAppearance="?android:textAppearanceMedium"/>
+
+    <Spinner
+        android:id="@+id/spinnerFatigue"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:hint="Fatigue"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/spinnerRunny_nose"
+        android:hint="Runny nose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/spinnerdiarrhea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:hint="Diarrhea" />
+
+
 
     <Button
         android:id="@+id/buttonsubmitcheckup"
@@ -111,7 +114,7 @@
         android:text="Submit Patient Checkup" />
 
     <TextView
-        android:layout_weight="2"
+        android:layout_weight="0.2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
