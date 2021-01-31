@@ -199,7 +199,7 @@ public class AddPatientActivity extends AppCompatActivity {
 
                 DefaultHttpClient httpclient = new DefaultHttpClient();
 
-                HttpPost httppost = new HttpPost("http://192.168.43.21:8081/hbc/addpatient.php");
+                HttpPost httppost = new HttpPost("http://192.168.43.20:8081/hbc/addpatient.php");
 
                 ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 
