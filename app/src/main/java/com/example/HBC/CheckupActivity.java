@@ -20,35 +20,51 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class CheckupActivity extends AppCompatActivity {
+public class CheckupActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     //global variables
     String selected_patient, selected_chills, patienttemperature, selected_chestpain, selected_headache, selected_cough, selected_difficultbreathing,
             selected_fatigue, selected_runnynose, selected_diarrhea, selected_throat;
+
+    Spinner spinnerPatient;
+    ArrayList<String> patientList = new ArrayList<>();
+    ArrayAdapter<String> patientAdapter;
+    RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkup);
 
+        displaySpinnerPatient();
+
         //referencing the variables in xml
         Button buttonsubmitcheckup = findViewById(R.id.buttonsubmitcheckup);
         EditText editTexttemperature = findViewById(R.id.editTexttemperature);
 
         //calling method to display spinner
-        displaySpinnerPatient();
         displaySpinnerChills();
         displaySpinnerChestpain();
         displaySpinnerHeadache();
@@ -146,6 +162,45 @@ public class CheckupActivity extends AppCompatActivity {
 
 
     public void displaySpinnerPatient(){
+
+        requestQueue = Volley.newRequestQueue(this);
+        spinnerPatient = findViewById(R.id.spinnerpatient);
+
+        String url = "http://192.168.43.20:8081/hbc/populate_patient.php";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
+                    JSONArray jsonArray = response.getJSONArray("patients");
+                    for(int i = 0; i<jsonArray.length(); i++){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String patientName = jsonObject.optString("p_fullnames");
+                        patientList.add(patientName);
+                        patientAdapter = new ArrayAdapter<>(CheckupActivity.this,
+                                android.R.layout.simple_spinner_item, patientList);
+                        patientAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerPatient.setAdapter(patientAdapter);
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
+        spinnerPatient.setOnItemSelectedListener(this);
+
+        /*
+
             Spinner spinnerpatient = findViewById(R.id.spinnerpatient);
             //data source
             String[] patientNames = {"HILLARY","MOSES","EDWARD","KENNETH","TOMMY","JEAN","ALLAN"};
@@ -165,7 +220,7 @@ public class CheckupActivity extends AppCompatActivity {
                 public void onNothingSelected(AdapterView<?> parent) {
                     selected_patient = "Not Specified";
                 }
-            });
+            }); */
         }
 
 
@@ -190,22 +245,7 @@ public class CheckupActivity extends AppCompatActivity {
                         return true;
                     }
                 }
-                //@Override
-                /* public View getDropDownView(int position, View convertView,
-                                            ViewGroup parent) {
-                    View view = super.getDropDownView(position, convertView, parent);
-                   // TextView tv;
-                    // tv = (TextView) view;
-                    TextView tv = findViewById(R.id.textViewSpinneritem2);
-                    if (position == 0) {
-                        // Set the hint text color gray
-                        tv.setTextColor(Color.GRAY);
-                        //spinnerchills.setTextColor(Color.GRAY);
-                    } else {
-                        tv.setTextColor(Color.BLACK);
-                    }
-                    return view;
-                } */
+
             };
             //assign array adapter to a spinner
             spinnerchills.setAdapter(spinneradaptera);
@@ -489,6 +529,17 @@ public class CheckupActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+            selected_patient = adapterView.getSelectedItem().toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        selected_patient = "Not Specified";
+
     }
 
 

@@ -39,6 +39,8 @@
             android:name=".CheckupActivity"
             android:label="Patient Checkup"
             android:parentActivityName=".MainActivity">
+
+
         </activity>
         <activity
             android:name=".ProfileActivity"
