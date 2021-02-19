@@ -38,6 +38,8 @@ public class AddPatientActivity extends AppCompatActivity {
 
     //global variables
     String selectedlocation, patientage, patientfullname, patientphonenumber, patientemail, selected_disease, selected_status;
+    //string variable for URL
+    String addpatient_url="http://192.168.43.20:8081/hbc/addpatient.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,7 +201,9 @@ public class AddPatientActivity extends AppCompatActivity {
 
                 DefaultHttpClient httpclient = new DefaultHttpClient();
 
-                HttpPost httppost = new HttpPost("http://192.168.43.20:8081/hbc/addpatient.php");
+                //HttpPost httppost = new HttpPost("http://192.168.43.20:8081/hbc/addpatient.php");
+                //add patient url is somewhere else
+                HttpPost httppost = new HttpPost(addpatient_url);
 
                 ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 

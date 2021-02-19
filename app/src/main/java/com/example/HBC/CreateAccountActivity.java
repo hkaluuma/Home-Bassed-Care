@@ -34,6 +34,9 @@ public class CreateAccountActivity extends AppCompatActivity {
     //global variables
     String selectedlocation, username, password, confirmpassword, fullname, phonenumber, email;
 
+    //urls
+    String register_url = "http://192.168.43.20:8081/hbc/register.php";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,7 +151,8 @@ public class CreateAccountActivity extends AppCompatActivity {
 
                 DefaultHttpClient httpclient = new DefaultHttpClient();
 
-                HttpPost httppost = new HttpPost("http://192.168.43.20:8081/hbc/register.php");
+                HttpPost httppost = new HttpPost(register_url);
+                //HttpPost httppost = new HttpPost("http://192.168.1.160:8081/hbc/register.php");
 
                 ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 

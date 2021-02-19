@@ -47,6 +47,9 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
     //global variables
     String selected_patient, selected_chills, patienttemperature, selected_chestpain, selected_headache, selected_cough, selected_difficultbreathing,
             selected_fatigue, selected_runnynose, selected_diarrhea, selected_throat;
+    //string for URL
+    String url = "http://192.168.43.20:8081/hbc/populate_patient.php";
+    String checkup_url="http://192.168.43.20:8081/hbc/checkup.php";
 
     Spinner spinnerPatient;
     ArrayList<String> patientList = new ArrayList<>();
@@ -166,7 +169,7 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
         requestQueue = Volley.newRequestQueue(this);
         spinnerPatient = findViewById(R.id.spinnerpatient);
 
-        String url = "http://192.168.43.20:8081/hbc/populate_patient.php";
+        //URL IS THE LINK AS a global variable
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -572,7 +575,7 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
 
                     DefaultHttpClient httpclient = new DefaultHttpClient();
 
-                    HttpPost httppost = new HttpPost("http://192.168.43.20:8081/hbc/checkup.php");
+                    HttpPost httppost = new HttpPost(checkup_url);
 
                     ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 

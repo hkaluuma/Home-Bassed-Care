@@ -41,6 +41,7 @@ import android.view.View;
 public class LoginActivity extends AppCompatActivity {
 
     String username, pass;
+    String login_url= "http://192.168.43.20:8081/hbc/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,8 +164,8 @@ public class LoginActivity extends AppCompatActivity {
                 // create a http default client - initialize the HTTp client
 
                 DefaultHttpClient httpclient = new DefaultHttpClient();
-                //HttpPost httppost = new HttpPost("http://192.168.43.21:8081/hbc/login.php");
-               HttpPost httppost = new HttpPost("http://192.168.43.20:8081/hbc/login.php");
+                HttpPost httppost = new HttpPost(login_url);
+               //HttpPost httppost = new HttpPost("http://192.168.43.20:8081/hbc/login.php");
 
                 ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 

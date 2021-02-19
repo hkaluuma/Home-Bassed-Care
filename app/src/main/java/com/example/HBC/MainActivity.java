@@ -139,9 +139,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, ContactUsActivity.class));
                 break;
 
-            case R.id.nav_chat:
+          /*  case R.id.nav_chat:
                 Toast.makeText(this,"Message", Toast.LENGTH_SHORT).show();
-                break;
+                break; */
 
         }
         drawer.closeDrawer(GravityCompat.START);
