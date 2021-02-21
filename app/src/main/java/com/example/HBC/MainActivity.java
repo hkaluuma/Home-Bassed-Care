@@ -9,6 +9,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Activity;
@@ -33,16 +35,33 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.HBC.adapters.RecyclerViewAdapter;
+import com.example.HBC.model.Anime;
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     //variables
     ListView listView;
-    //variable for the call funcitonality
-    //private static final int REQUEST_CALL = 1;
+
+    //new variables
+    private final String JSON_URL="http://192.168.43.20:8081/hbc/patients.php";
+    private JsonArrayRequest request;
+    private RequestQueue requestQueue;
+    private List<Anime> listAnime;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /*
         //new codes for list view
         listView=(ListView)findViewById(R.id.mylistview2);
         ArrayList<String> arrayList = new ArrayList<>();
@@ -73,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(MainActivity.this,"Clicked item"+ position +" "+ arrayList.get(position).toString(), Toast.LENGTH_SHORT).show();
             }
         });//end of the new code
+        */
 
 
 
@@ -84,29 +105,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-      /* //so that when you open the app navigation drawer, this activity loads
-        if(savedInstanceState == null){
-        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PatientsFragment()).commit();
-        //startActivity(new Intent(getApplicationContext(), PatientsFragment.class));
-           startActivity(new Intent(MainActivity.this, CheckupActivity.class));
-            //Intent navpatientsintent = new Intent(MainActivity.this, PatientsFragment.class);
-           // startActivity(navpatientsintent);
-        navigationView.setCheckedItem(R.id.nav_patients);
-        } */
+//new codes for recycler
+        listAnime = new ArrayList<>();
+        recyclerView = findViewById(R.id.recyclerviewid);
+        jsonrequest();
+
     }
-
-
-   /* @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == REQUEST_CALL){
-            if(grantResults.length > 0 && grantResults[0]== PackageManager.PERMISSION_GRANTED){
-                makecall();
-            }else{
-                Toast.makeText(this, "Permission Denied",Toast.LENGTH_SHORT).show();
-            }
-
-        }
-    } */
 
 
     @Override
@@ -147,28 +151,62 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
 
-        //to handle details after the call
-
-
-
     }
 
-   /*//function make call
-    public void makecall(){
-    if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-        ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
-    }else{
-        String dial = "256726046629";
-        startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
-    }
-    }//ending function */
 
-    //another function
+    //another function for drawer
     public void onBackPressed(){
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
         }else{
             super.onBackPressed();
         }
+    }
+
+    private void jsonrequest() {
+        request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+                for(int i=0; i <response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
+                        Anime anime = new Anime();
+                        anime.setFullnames(jsonObject.getString("fullnames"));
+                        anime.setComments(jsonObject.getString("comments"));
+                        anime.setPatient_id(jsonObject.getString("patient_id"));
+                        anime.setTest_status(jsonObject.getString("test_status"));
+                        anime.setLocation(jsonObject.getString("location"));
+                        anime.setAge(jsonObject.getString("age"));
+                        anime.setPhonenumber(jsonObject.getString("phonenumber"));
+                        anime.setDisease(jsonObject.getString("disease"));
+                        anime.setImage_url(jsonObject.getString("img"));
+                        listAnime.add(anime);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                setuprecycleerview(listAnime);
+            }
+
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        requestQueue = Volley.newRequestQueue(MainActivity.this);
+        requestQueue.add(request);
+    }
+
+    private void setuprecycleerview(List<Anime> listAnime) {
+        RecyclerViewAdapter myadapter = new RecyclerViewAdapter(this,listAnime);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        recyclerView.setAdapter(myadapter);
     }
 }
