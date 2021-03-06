@@ -164,7 +164,7 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
     }
 
 
-    public void displaySpinnerPatient(){
+    public void displaySpinnerPatient() {
 
         requestQueue = Volley.newRequestQueue(this);
         spinnerPatient = findViewById(R.id.spinnerpatient);

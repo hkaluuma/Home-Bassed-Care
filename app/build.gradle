@@ -29,14 +29,15 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/LICENSE'
     }
-    android {
-        useLibrary 'org.apache.http.legacy'
-    }
     //end of the  new sections
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    android {
+        useLibrary 'org.apache.http.legacy'
     }
 }
 
