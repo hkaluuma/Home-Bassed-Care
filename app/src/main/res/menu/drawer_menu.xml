@@ -12,7 +12,7 @@
             android:title="Add Patient" />
         <item android:id="@+id/nav_patients"
             android:icon="@drawable/ic_patient"
-            android:title="Patients" />
+            android:title="Show Checkups" />
         <item android:id="@+id/nav_checkup"
             android:icon="@drawable/ic_checkup"
             android:title="Daily Checkup" />
