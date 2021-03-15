@@ -125,7 +125,7 @@
                 android:paddingLeft="65dp"
                 android:text="Forgot Password?"
                 android:textAppearance="?android:textAppearanceSmall"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
         </LinearLayout>
 

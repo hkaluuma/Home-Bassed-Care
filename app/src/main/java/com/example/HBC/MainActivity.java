@@ -126,9 +126,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //Intent nav_messageintent = new Intent(MainActivity.this, MessageFragment.class);
                // startActivity(nav_messageintent);
                 break;
-            case R.id.nav_profile:
+            /*case R.id.nav_profile:
                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                break;
+                break; */
 
             case R.id.nav_patients:
                 startActivity(new Intent(MainActivity.this, PatientsActivity.class));

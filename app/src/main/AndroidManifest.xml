@@ -29,11 +29,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+
         </activity>
         <activity
             android:name=".AddPatientActivity"
             android:label="Add Patient"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity">
+
+
+        </activity>
         <activity
             android:name=".PatientsActivity"
             android:label="Patient's checkups"

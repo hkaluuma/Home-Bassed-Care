@@ -11,14 +11,14 @@
             android:icon="@drawable/ic_add_patient"
             android:title="Add Patient" />
         <item android:id="@+id/nav_patients"
-            android:icon="@drawable/ic_patient"
+            android:icon="@drawable/ic_search_person"
             android:title="Show Checkups" />
         <item android:id="@+id/nav_checkup"
             android:icon="@drawable/ic_checkup"
             android:title="Daily Checkup" />
-        <item android:id="@+id/nav_profile"
+        <!-- <item android:id="@+id/nav_profile"
             android:icon="@drawable/ic_profile"
-            android:title="Profile" />
+            android:title="Profile" /> -->
 
 
     </group>

@@ -37,7 +37,7 @@ import java.util.ArrayList;
 public class AddPatientActivity extends AppCompatActivity {
 
     //global variables
-    String selectedlocation, patientage, patientfullname, patientphonenumber, patientemail, selected_disease, selected_status;
+    String selectedlocation, patientage, patientfullname, patientphonenumber, patientemail, selected_disease, selected_status, comments;
     //string variable for URL
     String addpatient_url="http://192.168.43.20:8081/hbc/addpatient.php";
 
@@ -51,6 +51,7 @@ public class AddPatientActivity extends AppCompatActivity {
         final EditText editTextpatientphone =  findViewById(R.id.editTextpatientphone);
         final EditText editTextpateintemail =  findViewById(R.id.editTextpateintemail);
         final EditText editTextpateintage =  findViewById(R.id.editTextpateintage);
+        final EditText editTextcomments = findViewById(R.id.editTextcomments);
         //adding reference to the button in xml
         Button buttonccregister = findViewById(R.id.buttonpatientregister);
 
@@ -66,6 +67,7 @@ public class AddPatientActivity extends AppCompatActivity {
                 patientphonenumber = editTextpatientphone.getText().toString();
                 patientemail = editTextpateintemail.getText().toString();
                 patientage = editTextpateintage.getText().toString();
+                comments = editTextcomments.getText().toString();
 
                 if (patientfullname.isEmpty()) {
                     edittextpatientfullname.setError("Patient Full names are required");
@@ -214,6 +216,7 @@ public class AddPatientActivity extends AppCompatActivity {
                 nameValuePairs.add(new BasicNameValuePair("biz_phonenumber", patientphonenumber));
                 nameValuePairs.add(new BasicNameValuePair("biz_location", selectedlocation));
                 nameValuePairs.add(new BasicNameValuePair("biz_status", selected_status));
+                nameValuePairs.add(new BasicNameValuePair("biz_comments", comments));
 
 
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));

@@ -81,6 +81,13 @@
         android:hint="Patients's status"
         android:textAppearance="?android:textAppearanceMedium" />
 
+    <EditText
+        android:id="@+id/editTextcomments"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:hint="Comments and more Details."
+        android:inputType="textAutoComplete"/>
+
     <Button
         android:id="@+id/buttonpatientregister"
         android:layout_width="match_parent"
