@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:layout_margin="5dp"
+android:padding="10dp"
+tools:context=".UploadImageActivity">
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Select Patient Name"
+    android:textColor="#b3b3b3"
+    android:textSize="18dp" />
+
+<Spinner
+    android:id="@+id/spinnerpatient"
+    android:layout_width="match_parent"
+    android:layout_height="53dp"
+    android:hint="Patients' Name"
+    android:textAppearance="?android:textAppearanceMedium" />
+
+
+<ImageView
+    android:layout_width="200dp"
+    android:layout_height="150dp"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="15dp"
+    android:id="@+id/imageView"
+    android:visibility="gone"/>
+
+
+<!--<EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/imageView"
+    android:hint="Enter a Name"
+    android:layout_marginTop="20dp"
+    android:id="@+id/name"
+    android:visibility="gone"/> -->
+
+<Button
+    android:id="@+id/chooseBn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/name"
+    android:layout_marginTop="89dp"
+    android:text="Choose Image" />
+
+<Button
+    android:id="@+id/uploadBn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/chooseBn"
+    android:layout_marginTop="34dp"
+    android:text="Upload Image" />
+
+</LinearLayout>

@@ -120,11 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, MainActivity.class));
                 break;
             case R.id.nav_checkup:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CheckupFragment()).commit();
-                //startActivity(new Intent(getApplicationContext(), CheckupFragment.class));
                startActivity(new Intent(MainActivity.this, CheckupActivity.class));
-                //Intent nav_messageintent = new Intent(MainActivity.this, MessageFragment.class);
-               // startActivity(nav_messageintent);
                 break;
             /*case R.id.nav_profile:
                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
@@ -142,10 +138,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //makecall();
                 startActivity(new Intent(MainActivity.this, ContactUsActivity.class));
                 break;
-
-          /*  case R.id.nav_chat:
-                Toast.makeText(this,"Message", Toast.LENGTH_SHORT).show();
-                break; */
+            case R.id.nav_photo:
+                startActivity(new Intent(MainActivity.this, UploadImageActivity.class));
+                break;
 
         }
         drawer.closeDrawer(GravityCompat.START);
