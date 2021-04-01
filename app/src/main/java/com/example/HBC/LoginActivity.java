@@ -41,7 +41,10 @@ import android.view.View;
 public class LoginActivity extends AppCompatActivity {
 
     String username, pass;
-    String login_url= "http://192.168.43.20:8081/hbc/login.php";
+    //staging
+    //String login_url= "http://192.168.43.20:8081/hbc/login.php";
+    //Production
+    String login_url= "https://home-based-care.herokuapp.com/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

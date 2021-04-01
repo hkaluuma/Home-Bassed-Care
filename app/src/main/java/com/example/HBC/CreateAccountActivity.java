@@ -35,7 +35,10 @@ public class CreateAccountActivity extends AppCompatActivity {
     String selectedlocation, username, password, confirmpassword, fullname, phonenumber, email;
 
     //urls
-    String register_url = "http://192.168.43.20:8081/hbc/register.php";
+    //staging
+    //String register_url = "http://192.168.43.20:8081/hbc/register.php";
+    //production
+    String register_url = "https://home-based-care.herokuapp.com/register.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,13 +199,13 @@ public class CreateAccountActivity extends AppCompatActivity {
             pdialog.dismiss();
 
             if (responcefromphp.equals("1")) {
-                Toast.makeText(CreateAccountActivity.this, "Submission Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateAccountActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                 Intent createaccountintent = new Intent(CreateAccountActivity.this, LoginActivity.class);
                 startActivity(createaccountintent);
 
             } else if(responcefromphp.equals("0")){
 
-                Toast.makeText(CreateAccountActivity.this, "Submission failed.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateAccountActivity.this, "Registration failed.", Toast.LENGTH_SHORT).show();
 
             } else {
                 Toast.makeText(CreateAccountActivity.this, "Submission failed due to technical failure, Please contact Admin.", Toast.LENGTH_SHORT).show();

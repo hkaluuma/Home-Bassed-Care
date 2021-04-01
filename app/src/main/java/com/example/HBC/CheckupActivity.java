@@ -47,9 +47,12 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
     //global variables
     String selected_patient, selected_chills, patienttemperature, selected_chestpain, selected_headache, selected_cough, selected_difficultbreathing,
             selected_fatigue, selected_runnynose, selected_diarrhea, selected_throat;
-    //string for URL
-    String url = "http://192.168.43.20:8081/hbc/populate_patient.php";
-    String checkup_url="http://192.168.43.20:8081/hbc/checkup.php";
+    //string for URL staging
+    //String url = "http://192.168.43.20:8081/hbc/populate_patient.php";
+    //String checkup_url="http://192.168.43.20:8081/hbc/checkup.php";
+    //string for URL production
+    String url = "https://home-based-care.herokuapp.com/populate_patient.php";
+    String checkup_url="https://home-based-care.herokuapp.com/checkup.php";
 
     Spinner spinnerPatient;
     ArrayList<String> patientList = new ArrayList<>();

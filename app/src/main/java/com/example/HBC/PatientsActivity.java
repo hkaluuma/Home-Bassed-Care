@@ -44,7 +44,6 @@ import com.example.HBC.R;
 public class PatientsActivity extends AppCompatActivity {
 
     @SuppressLint("NewApi")
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +53,6 @@ public class PatientsActivity extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-
         final Button btn1 = (Button)findViewById(R.id.Searchbtn);
 // Perform action on click
         btn1.setOnClickListener(new View.OnClickListener() {
@@ -65,15 +63,16 @@ public class PatientsActivity extends AppCompatActivity {
     }
 
     public void SearchData()
-
     {
 // listView1
         final ListView lisView1 = (ListView)findViewById(R.id.listView1);
 // editText1
         final EditText inputText = (EditText)findViewById(R.id.editText1);
-
+        //production
+        String url = "https://home-based-care.herokuapp.com/displaycheckup.php";
+        //staging
         //String url = "http://192.168.43.20:8081/androidtutorial/displaycustomers.php";
-        String url = "http://192.168.43.20:8081/hbc/displaycheckup.php";
+        //String url = "http://192.168.43.20:8081/hbc/displaycheckup.php";
 
 
 // Paste Parameters

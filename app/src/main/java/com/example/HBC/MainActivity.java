@@ -57,7 +57,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ListView listView;
 
     //new variables
-    private final String JSON_URL="http://192.168.43.20:8081/hbc/patients.php";
+    //staging URL
+    //private final String JSON_URL="http://192.168.43.20:8081/hbc/patients.php";
+    //Production URL
+    private final String JSON_URL="https://home-based-care.herokuapp.com/patients.php";
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
     private List<Anime> listAnime;
@@ -140,6 +143,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_photo:
                 startActivity(new Intent(MainActivity.this, UploadImageActivity.class));
+                break;
+
+            case R.id.nav_logout:
+                Toast.makeText(MainActivity.this, "Logging out ... ", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 break;
 
         }
