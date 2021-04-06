@@ -50,6 +50,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.3.0'
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-rc01'
+    //website for the dependencies download
+    //https://developer.android.com/jetpack/androidx/releases/recyclerview#version_120_2
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     testImplementation 'junit:junit:4.+'
