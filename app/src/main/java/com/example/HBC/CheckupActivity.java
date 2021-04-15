@@ -26,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -48,11 +49,11 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
     String selected_patient, selected_chills, patienttemperature, selected_chestpain, selected_headache, selected_cough, selected_difficultbreathing,
             selected_fatigue, selected_runnynose, selected_diarrhea, selected_throat;
     //string for URL staging
-    //String url = "http://192.168.43.20:8081/hbc/populate_patient.php";
-    //String checkup_url="http://192.168.43.20:8081/hbc/checkup.php";
+    String url = "http://192.168.43.20:8081/hbc/populate_patient.php";
+    String checkup_url="http://192.168.43.20:8081/hbc/checkup.php";
     //string for URL production
-    String url = "https://home-based-care.herokuapp.com/populate_patient.php";
-    String checkup_url="https://home-based-care.herokuapp.com/checkup.php";
+   // String url = "https://home-based-care.herokuapp.com/populate_patient.php";
+    //String checkup_url="https://home-based-care.herokuapp.com/checkup.php";
 
     Spinner spinnerPatient;
     ArrayList<String> patientList = new ArrayList<>();
@@ -91,25 +92,35 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
                 if (patienttemperature.isEmpty()) {
                     editTexttemperature.setError("Patient temperature needed.");
                 }else if (selected_patient.equals("Not Specified")) {
-                    Toast.makeText(CheckupActivity.this, "Patient not selected", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CheckupActivity.this, "Patient not selected", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CheckupActivity.this, "Patient not selected", R.style.exampleToast).show();
                 } else if (selected_chestpain.equals("Not Specified")) {
-                    Toast.makeText(CheckupActivity.this, "Chest Pain not specified", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CheckupActivity.this, "Chest Pain not specified", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CheckupActivity.this, "Chest Pain status not specified", R.style.exampleToast).show();
                 } else if (selected_chills.equals("Not Specified")){
-                    Toast.makeText(CheckupActivity.this, "Chills not specified", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CheckupActivity.this, "Chills not specified", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CheckupActivity.this, "Chills status not specified", R.style.exampleToast).show();
                 } else if (selected_cough.equals("Not Specified")) {
-                    Toast.makeText(CheckupActivity.this, "Cough not specified", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CheckupActivity.this, "Cough not specified", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CheckupActivity.this, "Cough status not specified", R.style.exampleToast).show();
                 } else if (selected_diarrhea.equals("Not Specified")) {
-                    Toast.makeText(CheckupActivity.this, "Diarrhea not specified", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CheckupActivity.this, "Diarrhea not specified", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CheckupActivity.this, "Diarrhea status not specified", R.style.exampleToast).show();
                 } else if (selected_difficultbreathing.equals("Not Specified")) {
-                    Toast.makeText(CheckupActivity.this, "Breathing difficulties not specified", Toast.LENGTH_SHORT).show();
+                    //.makeText(CheckupActivity.this, "Breathing difficulties not specified", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CheckupActivity.this, "Breathing difficulties not specified", R.style.exampleToast).show();
                 } else if (selected_fatigue.equals("Not Specified")) {
-                    Toast.makeText(CheckupActivity.this, "Fatigue status not specified", Toast.LENGTH_SHORT).show();
+                    //.makeText(CheckupActivity.this, "Fatigue status not specified", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CheckupActivity.this, "Fatigue status not specified", R.style.exampleToast).show();
                 } else if (selected_headache.equals("Not Specified")){
-                    Toast.makeText(CheckupActivity.this, "Headache status not specified", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CheckupActivity.this, "Headache status not specified", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CheckupActivity.this, "Headache status not specified", R.style.exampleToast).show();
                 } else if (selected_runnynose.equals("Not Specified")) {
-                    Toast.makeText(CheckupActivity.this, "Running nose status not specified", Toast.LENGTH_SHORT).show();
+                    //.makeText(CheckupActivity.this, "Running nose status not specified", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CheckupActivity.this, "Running nose status not specified", R.style.exampleToast).show();
                 }else if (selected_throat.equals("Not Specified")) {
-                    Toast.makeText(CheckupActivity.this, "Sore throat status not specified", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CheckupActivity.this, "Sore throat status not specified", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CheckupActivity.this, "Sore throat status not specified", R.style.exampleToast).show();
                 }
                 else {
 
@@ -118,7 +129,8 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
                         new CheckupActivity.CheckupClass().execute();
                     } else {
                         // not connected
-                        Toast.makeText(CheckupActivity.this, "No internet Connection", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(CheckupActivity.this, "No internet Connection", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(CheckupActivity.this, "No internet Connection", R.style.exampleToast).show();
                     }
                 }
 
@@ -610,7 +622,8 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
                     inputStream.close();
 
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Try Again, Unexpected Error", Toast.LENGTH_LONG).show();
+                    //.makeText(getApplicationContext(), "Try Again, Unexpected Error", Toast.LENGTH_LONG).show();
+                    StyleableToast.makeText(getApplicationContext(), "Try Again, Unexpected Error", R.style.exampleToast).show();
                 }
 
                 return responcefromphp;
@@ -626,16 +639,19 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
                 pdialog.dismiss();
 
                 if (responcefromphp.equals("1")) {
-                    Toast.makeText(CheckupActivity.this, "Checkup Submission Successful", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CheckupActivity.this, "Checkup Submission Successful", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CheckupActivity.this, "Checkup Submission Successful", R.style.exampleToast).show();
                     Intent createaccountintent = new Intent(CheckupActivity.this, MainActivity.class);
                     startActivity(createaccountintent);
 
                 } else if(responcefromphp.equals("0")){
 
-                    Toast.makeText(CheckupActivity.this, "Submission failed.", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CheckupActivity.this, "Submission failed.", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CheckupActivity.this, "Submission failed", R.style.exampleToast).show();
 
                 } else {
-                    Toast.makeText(CheckupActivity.this, "Submission failed due to technical failure, Please contact Admin.", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CheckupActivity.this, "Submission failed due to technical failure, Please contact Admin.", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CheckupActivity.this, "Submission failed due to technical failure, Please contact Admin", R.style.exampleToast).show();
                 }
 
             }

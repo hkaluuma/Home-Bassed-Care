@@ -116,16 +116,16 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textViewforgotpassword"
+                android:id="@+id/textViewAdmin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:layout_weight="1"
                 android:paddingLeft="65dp"
-                android:text="Forgot Password?"
+                android:text="Admin Login"
                 android:textAppearance="?android:textAppearanceSmall"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textStyle="bold" />
         </LinearLayout>
 

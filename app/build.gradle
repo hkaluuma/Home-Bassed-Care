@@ -68,6 +68,8 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.0'
     //glide library
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    //toasty library
+    implementation 'com.muddzdev:styleabletoast:2.3.0'
 
 
 

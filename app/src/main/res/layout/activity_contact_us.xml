@@ -119,7 +119,7 @@
         android:layout_gravity="start"
         android:layout_margin="5dp"
         android:background="@drawable/custom_button"
-        android:drawableRight="@drawable/ic_baseline_call_24"
+        android:drawableRight="@drawable/ic_call"
         android:paddingLeft="7dp"
         android:paddingRight="5dp"
         android:text="Call Us"
@@ -128,7 +128,7 @@
         android:textColor="@color/white"
         android:textStyle="bold" />
 
-    <Button
+  <!--  <Button
         android:id="@+id/buttonIDIlocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -142,7 +142,7 @@
         android:textAlignment="viewStart"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textStyle="bold" />
+        android:textStyle="bold" /> -->
 
     <TextView
         android:layout_width="match_parent"

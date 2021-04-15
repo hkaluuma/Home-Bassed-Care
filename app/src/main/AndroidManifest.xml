@@ -16,11 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nav_drawer"
         android:usesCleartextTraffic="true">
+        <activity android:name=".AdminActivity"></activity>
         <activity
             android:name=".UploadImageActivity"
             android:label="Upload Patient Photo"
-            android:parentActivityName=".MainActivity">
-        </activity>
+            android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".activites.AnimeActivity" />
         <activity
             android:name=".ContactUsActivity"
@@ -34,16 +34,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".AddPatientActivity"
             android:label="Add Patient"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".PatientsActivity"
             android:label="Patient&apos;s checkups"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".CheckupActivity"
             android:label="Patient Checkup"

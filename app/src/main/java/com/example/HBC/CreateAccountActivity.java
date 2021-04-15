@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.muddzdev.styleabletoast.StyleableToast;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -36,9 +38,9 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     //urls
     //staging
-    //String register_url = "http://192.168.43.20:8081/hbc/register.php";
+    String register_url = "http://192.168.43.20:8081/hbc/register.php";
     //production
-    String register_url = "https://home-based-care.herokuapp.com/register.php";
+    //String register_url = "https://home-based-care.herokuapp.com/register.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +86,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                     edtxconfirmpassword.setError("Password confirmation is required");
                 }else if (!password.equals(confirmpassword)){
                     //edtxconfirmpassword.setError("Passwords not matching");
-                    Toast.makeText(CreateAccountActivity.this, "Passwords not matching", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CreateAccountActivity.this, "Passwords not matching", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(CreateAccountActivity.this, "Passwords not matching", R.style.exampleToast).show();
                 }else {
 
                     if (haveNetworkConnection()) {
@@ -92,7 +95,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                         new RegisterClass().execute();
                     } else {
                         // not connected
-                        Toast.makeText(CreateAccountActivity.this, "No internet Connection", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(CreateAccountActivity.this, "No internet Connection", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(CreateAccountActivity.this, "No internet Connection", R.style.exampleToast).show();
                     }
                 }
 
@@ -183,7 +187,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                 inputStream.close();
 
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Try Again, Unexpected Error", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Try Again, Unexpected Error", Toast.LENGTH_LONG).show();
+                StyleableToast.makeText(getApplicationContext(), "Try Again, Unexpected Error", R.style.exampleToast).show();
             }
 
             return responcefromphp;
@@ -199,16 +204,19 @@ public class CreateAccountActivity extends AppCompatActivity {
             pdialog.dismiss();
 
             if (responcefromphp.equals("1")) {
-                Toast.makeText(CreateAccountActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CreateAccountActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(CreateAccountActivity.this, "Registration Successful", R.style.exampleToast).show();
                 Intent createaccountintent = new Intent(CreateAccountActivity.this, LoginActivity.class);
                 startActivity(createaccountintent);
 
             } else if(responcefromphp.equals("0")){
 
-                Toast.makeText(CreateAccountActivity.this, "Registration failed.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CreateAccountActivity.this, "Registration failed.", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(CreateAccountActivity.this, "Registration failed.", R.style.exampleToast).show();
 
             } else {
-                Toast.makeText(CreateAccountActivity.this, "Submission failed due to technical failure, Please contact Admin.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CreateAccountActivity.this, "Submission failed due to technical failure, Please contact Admin.", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(CreateAccountActivity.this, "Submission failed due to technical failure, Please contact Admin", R.style.exampleToast).show();
             }
 
         }

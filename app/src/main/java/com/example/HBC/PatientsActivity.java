@@ -69,10 +69,9 @@ public class PatientsActivity extends AppCompatActivity {
 // editText1
         final EditText inputText = (EditText)findViewById(R.id.editText1);
         //production
-        String url = "https://home-based-care.herokuapp.com/displaycheckup.php";
+        //String url = "https://home-based-care.herokuapp.com/displaycheckup.php";
         //staging
-        //String url = "http://192.168.43.20:8081/androidtutorial/displaycustomers.php";
-        //String url = "http://192.168.43.20:8081/hbc/displaycheckup.php";
+        String url = "http://192.168.43.20:8081/hbc/displaycheckup.php";
 
 
 // Paste Parameters

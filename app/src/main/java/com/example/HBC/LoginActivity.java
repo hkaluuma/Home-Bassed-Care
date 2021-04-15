@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -42,9 +43,9 @@ public class LoginActivity extends AppCompatActivity {
 
     String username, pass;
     //staging
-    //String login_url= "http://192.168.43.20:8081/hbc/login.php";
+    String login_url= "http://192.168.43.20:8081/hbc/login.php";
     //Production
-    String login_url= "https://home-based-care.herokuapp.com/login.php";
+    //String login_url= "https://home-based-care.herokuapp.com/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText editTextusername = findViewById(R.id.editTextusername);
         final EditText editTextpassword = findViewById(R.id.editTextpassword);
         final TextView textViewcreateacc = findViewById(R.id.textViewcreateacc);
-        final TextView textViewforgotpassword = findViewById(R.id.textViewforgotpassword);
+        final TextView textViewAdmin = findViewById(R.id.textViewAdmin);
 
         textViewcreateacc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,11 +68,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        textViewforgotpassword.setOnClickListener(new View.OnClickListener() {
+        textViewAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent forgotpasswordintent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
-                startActivity(forgotpasswordintent);
+                Intent adminactivityintent = new Intent(LoginActivity.this, AdminActivity.class);
+                startActivity(adminactivityintent);
             }
         });
 
@@ -103,7 +104,8 @@ public class LoginActivity extends AppCompatActivity {
                         new LoginActivity.CreateLogin().execute();
                     } else {
                         // not connected
-                        Toast.makeText(LoginActivity.this, "No internet Connection", Toast.LENGTH_SHORT).show();
+                        //.makeText(LoginActivity.this, "No internet Connection", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(LoginActivity.this, "No internet Connection", R.style.exampleToast).show();
 
                     }
 
@@ -193,6 +195,7 @@ public class LoginActivity extends AppCompatActivity {
 
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), "Try Again", Toast.LENGTH_LONG).show();
+
             }
 
             return responcefromphp;
@@ -209,16 +212,19 @@ public class LoginActivity extends AppCompatActivity {
 
             if (responcefromphp.equals("1")) {
 
-                Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                //.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(LoginActivity.this, "Login Successful", R.style.exampleToast).show();
                 Intent loginintent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(loginintent);
 
             } else if(responcefromphp.equals("0")){
 
-                Toast.makeText(LoginActivity.this, "Login Failed customer not Registered.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LoginActivity.this, "Login Failed customer not Registered.", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(LoginActivity.this, "Login Failed customer not Registered.", R.style.exampleToast).show();
 
             } else {
-                Toast.makeText(LoginActivity.this, "Login Failed, contact admin or Try Again", Toast.LENGTH_SHORT).show();
+               //Toast.makeText(LoginActivity.this, "Login Failed, contact admin or Try Again", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(LoginActivity.this, "Login Failed, contact admin or Try Again", R.style.exampleToast).show();
             }
 
         }

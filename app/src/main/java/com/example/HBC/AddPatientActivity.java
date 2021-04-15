@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -39,9 +40,9 @@ public class AddPatientActivity extends AppCompatActivity {
     //global variables
     String selectedlocation, patientage, patientfullname, patientphonenumber, patientemail, selected_disease, selected_status, comments;
     //string variable for URL
-    //String addpatient_url="http://192.168.43.20:8081/hbc/addpatient.php";
+    String addpatient_url="http://192.168.43.20:8081/hbc/addpatient.php";
     //string variable for URL production
-    String addpatient_url="https://home-based-care.herokuapp.com/addpatient.php";
+   // String addpatient_url="https://home-based-care.herokuapp.com/addpatient.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +83,11 @@ public class AddPatientActivity extends AppCompatActivity {
                 }else if (patientage.isEmpty()) {
                     editTextpateintage.setError("User Name is Required");
                 }else if (selected_disease.isEmpty()) {
-                    Toast.makeText(AddPatientActivity.this, "Passwords not matching", Toast.LENGTH_SHORT).show();
+                    //.makeText(AddPatientActivity.this, "Passwords not matching", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(AddPatientActivity.this, "Select the disease", R.style.exampleToast).show();
                 }else if (selected_status.isEmpty()) {
-                    Toast.makeText(AddPatientActivity.this, "Passwords not matching", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(AddPatientActivity.this, "Passwords not matching", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(AddPatientActivity.this, "Select the status", R.style.exampleToast).show();
                 }else {
 
                     if (haveNetworkConnection()) {
@@ -92,7 +95,8 @@ public class AddPatientActivity extends AppCompatActivity {
                         new AddPatientActivity.RegisterClass().execute();
                     } else {
                         // not connected
-                        Toast.makeText(AddPatientActivity.this, "No internet Connection", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(AddPatientActivity.this, "No internet Connection", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(AddPatientActivity.this, "No internet Connection", R.style.exampleToast).show();
                     }
                 }
 
@@ -237,7 +241,8 @@ public class AddPatientActivity extends AppCompatActivity {
                 inputStream.close();
 
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Try Again, Unexpected Error", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Try Again, Unexpected Error", Toast.LENGTH_LONG).show();
+                StyleableToast.makeText(getApplicationContext(), "Try Again, Unexpected Error", R.style.exampleToast).show();
             }
 
             return responcefromphp;
@@ -253,16 +258,19 @@ public class AddPatientActivity extends AppCompatActivity {
             pdialog.dismiss();
 
             if (responcefromphp.equals("1")) {
-                Toast.makeText(AddPatientActivity.this, "Submission Successful", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AddPatientActivity.this, "Submission Successful", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(AddPatientActivity.this, "Submission Successful", R.style.exampleToast).show();
                 Intent createaccountintent = new Intent(AddPatientActivity.this, MainActivity.class);
                 startActivity(createaccountintent);
 
             } else if(responcefromphp.equals("0")){
 
-                Toast.makeText(AddPatientActivity.this, "Submission failed.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AddPatientActivity.this, "Submission failed.", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(AddPatientActivity.this, "Submission failed", R.style.exampleToast).show();
 
             } else {
-                Toast.makeText(AddPatientActivity.this, "Submission failed due to technical failure, Please contact Admin.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AddPatientActivity.this, "Submission failed due to technical failure, Please contact Admin.", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(AddPatientActivity.this, "Submission failed due to technical failure, Please contact Admin", R.style.exampleToast).show();
             }
 
         }

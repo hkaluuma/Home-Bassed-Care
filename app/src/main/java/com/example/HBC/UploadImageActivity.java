@@ -43,16 +43,16 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
     private ImageView imgView;
     private final int IMG_REQUEST = 1;
     private Bitmap bitmap;
-   /* //Staging URLS
+   //Staging URLS
     protected String UploadUrl = "http://192.168.43.20:8081/hbc/uploadimage.php";
     //variables of the dropdown list
     private String urlx = "http://192.168.43.20:8081/hbc/images/";
-    String url = "http://192.168.43.20:8081/hbc/populate_patient.php"; */
+    String url = "http://192.168.43.20:8081/hbc/populate_patient.php";
 
     //Production
-    protected String UploadUrl = "https://home-based-care.herokuapp.com/uploadimage.php";
-    private String urlx = "https://home-based-care.herokuapp.com/images/";
-    String url = "https://home-based-care.herokuapp.com/populate_patient.php";
+    //protected String UploadUrl = "https://home-based-care.herokuapp.com/uploadimage.php";
+    //private String urlx = "https://home-based-care.herokuapp.com/images/";
+    //String url = "https://home-based-care.herokuapp.com/populate_patient.php";
 
     String selected_patient;
 

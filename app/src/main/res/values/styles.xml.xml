@@ -12,5 +12,13 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="exampleToast">
+        <item name = "stColorBackground">#FF03DAC5</item>
+        <item name="stTextColor">#FFFFFF</item>
+        <item name="stStrokeColor">#000</item>
+        <item name="stStrokeWidth">3dp</item>
+    </style>
+
+
 
 </resources>

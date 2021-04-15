@@ -43,6 +43,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.HBC.adapters.RecyclerViewAdapter;
 import com.example.HBC.model.Anime;
 import com.google.android.material.navigation.NavigationView;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,9 +59,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //new variables
     //staging URL
-    //private final String JSON_URL="http://192.168.43.20:8081/hbc/patients.php";
+    private final String JSON_URL="http://192.168.43.20:8081/hbc/patients.php";
     //Production URL
-    private final String JSON_URL="https://home-based-care.herokuapp.com/patients.php";
+    //private final String JSON_URL="https://home-based-care.herokuapp.com/patients.php";
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
     private List<Anime> listAnime;
@@ -102,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -125,18 +127,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_checkup:
                startActivity(new Intent(MainActivity.this, CheckupActivity.class));
                 break;
-            /*case R.id.nav_profile:
-                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                break; */
-
+            case R.id.nav_maps:
+                String uri = "https://www.google.com/maps/d/u/0/viewer?mid=1dJjQ4jCUPR89umU3AIBPn59R9Pqp77Ms&ll=0.40092934615056425%2C32.57792117264799&z=12\n";
+                Intent locintent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(locintent);
+                break;
             case R.id.nav_patients:
                 startActivity(new Intent(MainActivity.this, PatientsActivity.class));
                 break;
-
             case R.id.nav_addpatient:
                 startActivity(new Intent(MainActivity.this, AddPatientActivity.class));
                 break;
-
             case R.id.nav_call:
                 //makecall();
                 startActivity(new Intent(MainActivity.this, ContactUsActivity.class));
@@ -144,9 +145,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_photo:
                 startActivity(new Intent(MainActivity.this, UploadImageActivity.class));
                 break;
-
             case R.id.nav_logout:
-                Toast.makeText(MainActivity.this, "Logging out ... ", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Logging out ... ", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(MainActivity.this, "Logging out ...", R.style.exampleToast).show();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 break;
 

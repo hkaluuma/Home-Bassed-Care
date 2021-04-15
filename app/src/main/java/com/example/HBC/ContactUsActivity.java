@@ -21,7 +21,7 @@ public class ContactUsActivity extends AppCompatActivity {
         Button btntwitter = findViewById(R.id.buttonTwitter);
         Button btninstagram = findViewById(R.id.buttonInstagran);
         Button btnphone = findViewById(R.id.buttonPhone);
-        Button btnlocator = findViewById(R.id.buttonIDIlocation);
+       //Button btnlocator = findViewById(R.id.buttonIDIlocation);
 
         btnsocial.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +46,7 @@ public class ContactUsActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent Facebookintent = new Intent();
+                //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://m.facebook.com")));
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com")));
             }
         });
@@ -80,7 +81,7 @@ public class ContactUsActivity extends AppCompatActivity {
             }
         });
 
-        btnlocator.setOnClickListener(new View.OnClickListener() {
+       /* btnlocator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(ContactsActivity.this, "Location button pressed", Toast.LENGTH_SHORT).show();
@@ -90,7 +91,7 @@ public class ContactUsActivity extends AppCompatActivity {
                 startActivity(locintent);
 
             }
-        });
+        }); */
 
 
     }
