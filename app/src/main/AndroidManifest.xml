@@ -16,11 +16,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nav_drawer"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AdminActivity"></activity>
+        <activity android:name=".DischargeActivity"
+            android:label="Discharge Patient"
+            android:parentActivityName=".MainActivity">
+
+        </activity>
+        <activity android:name=".AdminHome" />
+        <activity
+            android:name=".AdminActivity"
+            android:label="Admin Login"
+            android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".UploadImageActivity"
             android:label="Upload Patient Photo"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".activites.AnimeActivity" />
         <activity
             android:name=".ContactUsActivity"

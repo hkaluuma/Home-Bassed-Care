@@ -142,6 +142,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //makecall();
                 startActivity(new Intent(MainActivity.this, ContactUsActivity.class));
                 break;
+            case R.id.nav_discharge:
+                //makecall();
+                startActivity(new Intent(MainActivity.this, DischargeActivity.class));
+                break;
             case R.id.nav_photo:
                 startActivity(new Intent(MainActivity.this, UploadImageActivity.class));
                 break;

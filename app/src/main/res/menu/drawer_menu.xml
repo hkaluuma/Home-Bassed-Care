@@ -16,6 +16,9 @@
         <item android:id="@+id/nav_checkup"
             android:icon="@drawable/ic_checkup"
             android:title="Daily Checkup" />
+        <item android:id="@+id/nav_discharge"
+        android:icon="@drawable/ic_baseline_person_remove_alt_1_24"
+        android:title="Discharge Patient" />
         <item android:id="@+id/nav_photo"
             android:icon="@drawable/ic_upload_photo"
             android:title="Upload Photo" />
