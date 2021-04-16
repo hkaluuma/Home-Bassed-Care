@@ -35,9 +35,9 @@ public class AdminActivity extends AppCompatActivity {
 
     String username, pass;
     //staging
-    String login_url= "http://192.168.43.20:8081/hbc/admin_login.php";
+    //String login_url= "http://192.168.43.20:8081/hbc/admin_login.php";
     //Production
-    //String login_url= "https://home-based-care.herokuapp.com/login.php";
+    String login_url= "https://home-based-care.herokuapp.com/admin_login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

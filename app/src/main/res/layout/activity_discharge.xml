@@ -22,12 +22,25 @@
         android:hint="Patients' Name"
         android:textAppearance="?android:textAppearanceMedium" />
 
-
     <Button
         android:id="@+id/DischargeBn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="34dp"
-        android:text="Discharge patient" />
+        android:text="Discharge Patient from System" />
+
+    <Spinner
+        android:id="@+id/spinnerpatient2"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:hint="Patients' Name"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/rechargeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:text="Re-Admit Patient into the System" />
 
 </LinearLayout>

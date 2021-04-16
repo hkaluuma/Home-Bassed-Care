@@ -59,9 +59,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //new variables
     //staging URL
-    private final String JSON_URL="http://192.168.43.20:8081/hbc/patients.php";
+    //private final String JSON_URL="http://192.168.43.20:8081/hbc/patients.php";
     //Production URL
-    //private final String JSON_URL="https://home-based-care.herokuapp.com/patients.php";
+    private final String JSON_URL="https://home-based-care.herokuapp.com/patients.php";
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
     private List<Anime> listAnime;

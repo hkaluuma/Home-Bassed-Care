@@ -43,9 +43,9 @@ public class LoginActivity extends AppCompatActivity {
 
     String username, pass;
     //staging
-    String login_url= "http://192.168.43.20:8081/hbc/login.php";
+    //String login_url= "http://192.168.43.20:8081/hbc/login.php";
     //Production
-    //String login_url= "https://home-based-care.herokuapp.com/login.php";
+    String login_url= "https://home-based-care.herokuapp.com/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

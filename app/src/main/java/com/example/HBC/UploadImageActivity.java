@@ -26,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,15 +45,15 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
     private final int IMG_REQUEST = 1;
     private Bitmap bitmap;
    //Staging URLS
-    protected String UploadUrl = "http://192.168.43.20:8081/hbc/uploadimage.php";
+   /* protected String UploadUrl = "http://192.168.43.20:8081/hbc/uploadimage.php";
     //variables of the dropdown list
     private String urlx = "http://192.168.43.20:8081/hbc/images/";
-    String url = "http://192.168.43.20:8081/hbc/populate_patient.php";
+    String url = "http://192.168.43.20:8081/hbc/populate_patient.php"; */
 
     //Production
-    //protected String UploadUrl = "https://home-based-care.herokuapp.com/uploadimage.php";
-    //private String urlx = "https://home-based-care.herokuapp.com/images/";
-    //String url = "https://home-based-care.herokuapp.com/populate_patient.php";
+    protected String UploadUrl = "https://home-based-care.herokuapp.com/uploadimage.php";
+    private String urlx = "https://home-based-care.herokuapp.com/images/";
+    String url = "https://home-based-care.herokuapp.com/populate_patient.php";
 
     String selected_patient;
 
@@ -176,11 +177,19 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String Response = jsonObject.getString("response");
-                            Toast.makeText(UploadImageActivity.this, Response,Toast.LENGTH_LONG).show();
+                            //Toast.makeText(UploadImageActivity.this, Response,Toast.LENGTH_LONG).show();
+                            StyleableToast.makeText(UploadImageActivity.this,Response, R.style.exampleToast).show();
+
+                            if(Response == "Image Uploaded Successfully"){
+                                Intent uploadedintent = new Intent(UploadImageActivity.this, MainActivity.class);
+                                startActivity(uploadedintent);
+                            }
+
                             imgView.setImageResource(0);
                             imgView.setVisibility(View.GONE);
                             //NAME.setText("");
                             //NAME.setVisibility(View.GONE);
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();

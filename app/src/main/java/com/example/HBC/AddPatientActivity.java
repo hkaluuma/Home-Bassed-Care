@@ -40,9 +40,9 @@ public class AddPatientActivity extends AppCompatActivity {
     //global variables
     String selectedlocation, patientage, patientfullname, patientphonenumber, patientemail, selected_disease, selected_status, comments;
     //string variable for URL
-    String addpatient_url="http://192.168.43.20:8081/hbc/addpatient.php";
+    //String addpatient_url="http://192.168.43.20:8081/hbc/addpatient.php";
     //string variable for URL production
-   // String addpatient_url="https://home-based-care.herokuapp.com/addpatient.php";
+   String addpatient_url="https://home-based-care.herokuapp.com/addpatient.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
