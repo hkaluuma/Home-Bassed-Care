@@ -1,5 +1,7 @@
 package com.example.HBC;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,6 +21,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,7 +48,17 @@ public class LoginActivity extends AppCompatActivity {
     //staging
     //String login_url= "http://192.168.43.20:8081/hbc/login.php";
     //Production
-    String login_url= "https://home-based-care.herokuapp.com/login.php";
+    //String login_url= "https://home-based-care.herokuapp.com/login.php";
+    //authentic sessions
+    String login_url ="http://192.168.43.20:80/hbc/authentic.php";
+    //Production
+    //String login_url= "https://home-based-care.herokuapp.com/authentic.php";
+
+    //shared preferences variables
+    SharedPreferences sharedpreferences;
+    SharedPreferences mySharedPreferences;
+    public static final String MYPREFERENCES_LOGIN = "MyPreferences_002";
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +66,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         final EditText editTextusername = findViewById(R.id.editTextusername);
         final EditText editTextpassword = findViewById(R.id.editTextpassword);
@@ -210,21 +222,38 @@ public class LoginActivity extends AppCompatActivity {
             // dismiss dialog and perform other tasks
             pdialog.dismiss();
 
-            if (responcefromphp.equals("1")) {
+            /*if (responcefromphp.equals("1")) {
 
                 //.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                 StyleableToast.makeText(LoginActivity.this, "Login Successful", R.style.exampleToast).show();
                 Intent loginintent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(loginintent);
 
-            } else if(responcefromphp.equals("0")){
+            }  */
+            if(responcefromphp.equals("0")){
 
                 //Toast.makeText(LoginActivity.this, "Login Failed customer not Registered.", Toast.LENGTH_SHORT).show();
                 StyleableToast.makeText(LoginActivity.this, "Login Failed customer not Registered.", R.style.exampleToast).show();
 
             } else {
-               //Toast.makeText(LoginActivity.this, "Login Failed, contact admin or Try Again", Toast.LENGTH_SHORT).show();
-                StyleableToast.makeText(LoginActivity.this, "Login Failed, contact admin or Try Again", R.style.exampleToast).show();
+                String[] usercredentials = responcefromphp.split("#");
+                Log.e("responcefromphp", responcefromphp);
+
+                SharedPreferences mySharedPreferences = getSharedPreferences(MYPREFERENCES_LOGIN, Activity.MODE_PRIVATE);
+                editor = mySharedPreferences.edit();
+                editor.putString("username", usercredentials[0]);
+                editor.putString("fullname", usercredentials[1]);
+                editor.putString("phonenumber", usercredentials[2]);
+                editor.putString("location", usercredentials[3]);
+                editor.putString("email", usercredentials[4]);
+                editor.putString("id", usercredentials[5]);
+                editor.commit();
+
+                //Toast.makeText(LoginActivity.this, "Login Successfull", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(LoginActivity.this, "Login Successfull", R.style.exampleToast).show();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+
             }
 
         }

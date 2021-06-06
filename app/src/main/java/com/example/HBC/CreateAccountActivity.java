@@ -38,9 +38,9 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     //urls
     //staging
-    //String register_url = "http://192.168.43.20:8081/hbc/register.php";
+    String register_url = "http://192.168.43.20:80/hbc/register.php";
     //production
-    String register_url = "https://home-based-care.herokuapp.com/register.php";
+    //String register_url = "https://home-based-care.herokuapp.com/register.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

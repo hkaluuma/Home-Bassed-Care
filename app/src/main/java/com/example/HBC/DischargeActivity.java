@@ -58,23 +58,24 @@ public class DischargeActivity extends AppCompatActivity {
 
 
     //Staging URLS
-    /*protected String discharge_url = "http://192.168.43.20:8081/hbc/discharge_patient.php";
-    protected String readmit_url = "http://192.168.43.20:8081/hbc/readmit_patient.php";
-    String url = "http://192.168.43.20:8081/hbc/populate_patient.php";
-    String url2 = "http://192.168.43.20:8081/hbc/populate_patient2.php"; */
+    protected String discharge_url = "http://192.168.43.20:80/hbc/discharge_patient.php";
+    protected String readmit_url = "http://192.168.43.20:80/hbc/readmit_patient.php";
+    String url = "http://192.168.43.20:80/hbc/populate_patient.php";
+    String url2 = "http://192.168.43.20:80/hbc/populate_patient2.php";
 
-    //Production
+   /* //Production
     protected String discharge_url = "https://home-based-care.herokuapp.com/discharge_patient.php";
     protected String readmit_url = "https://home-based-care.herokuapp.com/readmit_patient.php";
     String url = "https://home-based-care.herokuapp.com/populate_patient.php";
-    String url2 = "https://home-based-care.herokuapp.com/populate_patient2.php";
+    String url2 = "https://home-based-care.herokuapp.com/populate_patient2.php"; */
 
 
     String selected_patient;
+    String selected_patient2;
 
     //string for URL//codes for the new drop down code
     Spinner spinnerPatient, spinnerPatient2;
-    ArrayList<String> patientList = new ArrayList<>();
+    ArrayList<String> patientList1 = new ArrayList<>();
     ArrayList<String> patientList2 = new ArrayList<>();
     ArrayAdapter<String> patientAdapter;
     ArrayAdapter<String> patientAdapter2;
@@ -275,7 +276,7 @@ public class DischargeActivity extends AppCompatActivity {
 
                 ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 
-                nameValuePairs.add(new BasicNameValuePair("biz_fullnames", selected_patient));
+                nameValuePairs.add(new BasicNameValuePair("biz_fullnames", selected_patient2));
 
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 HttpResponse response = httpclient.execute(httppost);
@@ -341,9 +342,9 @@ public class DischargeActivity extends AppCompatActivity {
                     for(int i = 0; i<jsonArray.length(); i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         String patientName = jsonObject.optString("p_fullnames");
-                        patientList.add(patientName);
+                        patientList1.add(patientName);
                         patientAdapter = new ArrayAdapter<>(DischargeActivity.this,
-                                android.R.layout.simple_spinner_item, patientList);
+                                android.R.layout.simple_spinner_item, patientList1);
                         patientAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinnerPatient.setAdapter(patientAdapter);
 
@@ -418,11 +419,11 @@ public class DischargeActivity extends AppCompatActivity {
         spinnerPatient2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                selected_patient = adapterView.getSelectedItem().toString();
+                selected_patient2 = adapterView.getSelectedItem().toString();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                selected_patient = "Not Specified";
+                selected_patient2 = "Not Specified";
 
             }
 

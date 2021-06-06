@@ -14,8 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -23,6 +27,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
@@ -56,50 +61,55 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     //variables
     ListView listView;
+    //private session string variables
+    private String username, phonenumber, email, fullname, location, id;
 
-    //new variables
     //staging URL
-    //private final String JSON_URL="http://192.168.43.20:8081/hbc/patients.php";
+    //private final String JSON_URL="http://192.168.43.20:80/hbc/patients.php";
+   //private final String JSON_URL="http://192.168.43.20/hbc/api/location/read_single.php?p_location="+location;
     //Production URL
-    private final String JSON_URL="https://home-based-care.herokuapp.com/patients.php";
+    //private final String JSON_URL="https://home-based-care.herokuapp.com/patients.php";
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
     private List<Anime> listAnime;
     private RecyclerView recyclerView;
+
+    ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //to show progress bar when there is internet connection
+        progressBar = (ProgressBar) findViewById(R.id.my_progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
+        if (haveNetworkConnection()) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    progressBar.setIndeterminate(true);
+        } else {
+            progressBar.setIndeterminate(false);
+            progressBar.setVisibility(View.GONE);
+            //Toast.makeText(this, "No internet Connection", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(MainActivity.this, "No internet Connection", R.style.exampleToast).show();
+        }
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*
-        //new codes for list view
-        listView=(ListView)findViewById(R.id.mylistview2);
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("HILLARY");
-        arrayList.add("MOSES");
-        arrayList.add("EDWARD");
-        arrayList.add("KENNETH");
-        arrayList.add("TOMMY");
-        arrayList.add("JEAN");
-        arrayList.add("ALLAN");
+       /* //variables caputring session in shared preferences
+        SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.MYPREFERENCES_LOGIN, Context.MODE_PRIVATE);
+        String username = sharedpreferences.getString("username", null);
+        String phonenumber = sharedpreferences.getString("phonenumber", null);
+        String email = sharedpreferences.getString("email", null);
+        String fullname = sharedpreferences.getString("fullname", null);
+        String location = sharedpreferences.getString("location", null);
+        String id = sharedpreferences.getString("id", null);
+        //end shared preferences
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,arrayList);
-        //listView.setAdapter(arrayAdapter);
-        listView.setAdapter(arrayAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this,"Clicked item"+ position +" "+ arrayList.get(position).toString(), Toast.LENGTH_SHORT).show();
-            }
-        });//end of the new code
-        */
-
-
+        String JSON_URL="http://localhost:80/hbc/api/location/read_single.php?p_location="+location; */
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -151,8 +161,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_logout:
                 //Toast.makeText(MainActivity.this, "Logging out ... ", Toast.LENGTH_SHORT).show();
-                StyleableToast.makeText(MainActivity.this, "Logging out ...", R.style.exampleToast).show();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                //StyleableToast.makeText(MainActivity.this, "Logging out ...", R.style.exampleToast).show();
+                startActivity(new Intent(MainActivity.this, AccountActivity.class));
                 break;
 
         }
@@ -172,6 +182,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void jsonrequest() {
+        //getting the session and url
+        function_get_shared_preferences();
+        String JSON_URL="http://192.168.43.20/hbc/api/location/read_single.php?p_location="+location;
         request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -216,5 +229,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         recyclerView.setAdapter(myadapter);
+    }
+
+    //method to check internet availability(WiFi and MobileData)
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
+
+    private void function_get_shared_preferences(){
+        //variables caputring session in shared preferences
+        SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.MYPREFERENCES_LOGIN, Context.MODE_PRIVATE);
+        username = sharedpreferences.getString("username", null);
+        phonenumber = sharedpreferences.getString("phonenumber", null);
+        email = sharedpreferences.getString("email", null);
+        fullname = sharedpreferences.getString("fullname", null);
+        location = sharedpreferences.getString("location", null);
+        id = sharedpreferences.getString("id", null);
+        //end shared preferences
     }
 }

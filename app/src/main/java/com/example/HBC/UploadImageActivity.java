@@ -3,8 +3,13 @@ package com.example.HBC;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -44,16 +50,21 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
     private ImageView imgView;
     private final int IMG_REQUEST = 1;
     private Bitmap bitmap;
-   //Staging URLS
-   /* protected String UploadUrl = "http://192.168.43.20:8081/hbc/uploadimage.php";
-    //variables of the dropdown list
-    private String urlx = "http://192.168.43.20:8081/hbc/images/";
-    String url = "http://192.168.43.20:8081/hbc/populate_patient.php"; */
 
-    //Production
+    //private session string variables
+    private String username, phonenumber, email, fullname, location, id;
+
+   //Staging URLS
+    protected String UploadUrl = "http://192.168.43.20:80/hbc/uploadimage.php";
+    //variables of the dropdown list
+    private String urlx = "http://192.168.43.20:80/hbc/images/";
+    //String url = "http://192.168.43.20:80/hbc/populate_patient.php";
+
+
+   /*//Production
     protected String UploadUrl = "https://home-based-care.herokuapp.com/uploadimage.php";
     private String urlx = "https://home-based-care.herokuapp.com/images/";
-    String url = "https://home-based-care.herokuapp.com/populate_patient.php";
+    String url = "https://home-based-care.herokuapp.com/populate_patient.php"; */
 
     String selected_patient;
 
@@ -62,11 +73,14 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
     ArrayList<String> patientList = new ArrayList<>();
     ArrayAdapter<String> patientAdapter;
     RequestQueue requestQueue;
+    //progress bar
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_image);
+
         UploadBn = (Button)findViewById(R.id.uploadBn);
         ChooseBn = (Button)findViewById(R.id.chooseBn);
         //NAME = (EditText) findViewById(R.id.name);
@@ -74,6 +88,20 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
 
         ChooseBn.setOnClickListener(this);
         UploadBn.setOnClickListener(this);
+
+        //to show progress bar when there is internet connection
+        progressBar = (ProgressBar) findViewById(R.id.my_progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
+        if (haveNetworkConnection()) {
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setIndeterminate(true);
+        } else {
+            progressBar.setIndeterminate(false);
+            progressBar.setVisibility(View.GONE);
+            //Toast.makeText(this, "No internet Connection", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(UploadImageActivity.this, "No internet Connection", R.style.exampleToast).show();
+        }
 
         //code for the drop down
         displaySpinnerPatient();
@@ -83,6 +111,11 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
     private void displaySpinnerPatient() {
         requestQueue = Volley.newRequestQueue(this);
         spinnerPatient = findViewById(R.id.spinnerpatient);
+
+        //calling the session method
+        function_get_shared_preferences();
+        String url = "http://192.168.43.20:80/hbc/api/location/read_patients.php?p_location="+location;
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -177,14 +210,23 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String Response = jsonObject.getString("response");
-                            //Toast.makeText(UploadImageActivity.this, Response,Toast.LENGTH_LONG).show();
-                            StyleableToast.makeText(UploadImageActivity.this,Response, R.style.exampleToast).show();
+                            //create progress dialog class
+                            ProgressDialog pdialog;
+                            //show dialog while registering Business
+                            pdialog = new ProgressDialog(UploadImageActivity.this);
+                            pdialog.setMessage("Please wait...");
+                            pdialog.setIndeterminate(false);//hold till procees is done
+                            pdialog.setCancelable(false);// set screen in freez
+                            pdialog.show();
 
-                            if(Response == "Image Uploaded Successfully"){
+                            if(Response.equals("Image Uploaded Successfully")){
+                                StyleableToast.makeText(UploadImageActivity.this, Response,R.style.exampleToast).show();
                                 Intent uploadedintent = new Intent(UploadImageActivity.this, MainActivity.class);
                                 startActivity(uploadedintent);
+                            }else{
+                                StyleableToast.makeText(UploadImageActivity.this, Response,R.style.exampleToast).show();
+                                //Toast.makeText(UploadImageActivity.this, Response,Toast.LENGTH_LONG).show();
                             }
-
                             imgView.setImageResource(0);
                             imgView.setVisibility(View.GONE);
                             //NAME.setText("");
@@ -222,5 +264,37 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
         bitmap.compress(Bitmap.CompressFormat.JPEG,100, byteArrayOutputStream);
         byte[] imgBytes = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(imgBytes,Base64.DEFAULT);
+    }
+
+
+    //method to check internet availability(WiFi and MobileData)
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
+
+    //mehtod for get session function
+    private void function_get_shared_preferences(){
+        //variables caputring session in shared preferences
+        SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.MYPREFERENCES_LOGIN, Context.MODE_PRIVATE);
+        username = sharedpreferences.getString("username", null);
+        phonenumber = sharedpreferences.getString("phonenumber", null);
+        email = sharedpreferences.getString("email", null);
+        fullname = sharedpreferences.getString("fullname", null);
+        location = sharedpreferences.getString("location", null);
+        id = sharedpreferences.getString("id", null);
+        //end shared preferences
     }
 }

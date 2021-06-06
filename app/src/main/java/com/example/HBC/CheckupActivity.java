@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -48,12 +49,16 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
     //global variables
     String selected_patient, selected_chills, patienttemperature, selected_chestpain, selected_headache, selected_cough, selected_difficultbreathing,
             selected_fatigue, selected_runnynose, selected_diarrhea, selected_throat;
-    //string for URL staging
-    /*String url = "http://192.168.43.20:8081/hbc/populate_patient.php";
-    String checkup_url="http://192.168.43.20:8081/hbc/checkup.php"; */
+    //private session string variables
+    private String username, phonenumber, email, fullname, location, id;
+
+   //string for URL staging
+    //String url = "http://192.168.43.20:80/hbc/populate_patient.php";
+    String checkup_url="http://192.168.43.20:80/hbc/checkup.php";
+
     //string for URL production
-    String url = "https://home-based-care.herokuapp.com/populate_patient.php";
-    String checkup_url="https://home-based-care.herokuapp.com/checkup.php";
+    /*String url = "https://home-based-care.herokuapp.com/populate_patient.php";
+    String checkup_url="https://home-based-care.herokuapp.com/checkup.php"; */
 
     Spinner spinnerPatient;
     ArrayList<String> patientList = new ArrayList<>();
@@ -183,7 +188,9 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
 
         requestQueue = Volley.newRequestQueue(this);
         spinnerPatient = findViewById(R.id.spinnerpatient);
-
+        //calling the shared preferences method and url in api
+        function_get_shared_preferences();
+        String url = "http://192.168.43.20:80/hbc/api/location/read_patients.php?p_location="+location;
         //URL IS THE LINK AS a global variable
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 url, null, new Response.Listener<JSONObject>() {
@@ -197,8 +204,11 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
                         String patientName = jsonObject.optString("p_fullnames");
                         patientList.add(patientName);
                         patientAdapter = new ArrayAdapter<>(CheckupActivity.this,
+                               // android.R.layout.simple_spinner_item, patientList);
                                 android.R.layout.simple_spinner_item, patientList);
+                        //patientAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         patientAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
                         spinnerPatient.setAdapter(patientAdapter);
 
                     }
@@ -676,5 +686,19 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
                     haveConnectedMobile = true;
         }
         return haveConnectedWifi || haveConnectedMobile;
+    }
+
+
+    //mehtod for get session function
+    private void function_get_shared_preferences(){
+        //variables caputring session in shared preferences
+        SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.MYPREFERENCES_LOGIN, Context.MODE_PRIVATE);
+        username = sharedpreferences.getString("username", null);
+        phonenumber = sharedpreferences.getString("phonenumber", null);
+        email = sharedpreferences.getString("email", null);
+        fullname = sharedpreferences.getString("fullname", null);
+        location = sharedpreferences.getString("location", null);
+        id = sharedpreferences.getString("id", null);
+        //end shared preferences
     }
 }
