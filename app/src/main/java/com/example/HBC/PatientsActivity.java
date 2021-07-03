@@ -20,6 +20,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.annotation.SuppressLint;
@@ -42,6 +45,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.HBC.R;
 
 public class PatientsActivity extends AppCompatActivity {
+
+    //variables for sessions
+    private String username, phonenumber, email, fullname, location, id;
 
     @SuppressLint("NewApi")
     @Override
@@ -69,14 +75,31 @@ public class PatientsActivity extends AppCompatActivity {
 // editText1
         final EditText inputText = (EditText)findViewById(R.id.editText1);
         //production
-        //String url = "https://home-based-care.herokuapp.com/displaycheckup.php";
+        /*String url = "https://home-based-care.herokuapp.com/displaycheckup.php";
+        //String url = "https://maendeleotech.com/hbc/displaycheckup.php";
         //staging
-       String url = "http://192.168.43.20:80/hbc/displaycheckup.php";
+        //String url = "http://192.168.1.150:8080/hbc/displaycheckup.php"; */
+
+        //variables caputring session in shared preferences
+        SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.MYPREFERENCES_LOGIN, Context.MODE_PRIVATE);
+        username = sharedpreferences.getString("username", null);
+        phonenumber = sharedpreferences.getString("phonenumber", null);
+        email = sharedpreferences.getString("email", null);
+        fullname = sharedpreferences.getString("fullname", null);
+        location = sharedpreferences.getString("location", null);
+        id = sharedpreferences.getString("id", null);
+        //end shared preferences
+        //String url = "http://192.168.1.150:8080/hbc/api/checkup/read_checkups.php?p_location="+ location;
+        //working below
+        //String url = "http://192.168.1.150:8080/hbc/displaycheckup.php";
+        String url = "https://maendeleotech.com/hbc/displaycheckup.php";
 
 
-// Paste Parameters
+        // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("txtKeyword", inputText.getText().toString()));
+        params.add(new BasicNameValuePair("location", location));
+
 
         try {
             JSONArray data = new JSONArray(getJSONUrl(url,params));
@@ -216,5 +239,7 @@ public class PatientsActivity extends AppCompatActivity {
 
         return true;
     }*/
+
+
 
 }

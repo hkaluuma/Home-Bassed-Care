@@ -48,11 +48,15 @@ public class LoginActivity extends AppCompatActivity {
     //staging
     //String login_url= "http://192.168.43.20:8081/hbc/login.php";
     //Production
-    //String login_url= "https://home-based-care.herokuapp.com/login.php";
+   // String login_url= "https://home-based-care.herokuapp.com/login.php";
     //authentic sessions
-    String login_url ="http://192.168.43.20:80/hbc/authentic.php";
-    //Production
+    //String login_url ="http://192.168.1.150:8080/hbc/authentic.php";
+
+    //Production one
     //String login_url= "https://home-based-care.herokuapp.com/authentic.php";
+
+    //Production two
+    String login_url= "https://maendeleotech.com/hbc/authentic.php";
 
     //shared preferences variables
     SharedPreferences sharedpreferences;

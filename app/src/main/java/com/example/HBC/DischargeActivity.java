@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -55,19 +56,25 @@ import java.util.Map;
 public class DischargeActivity extends AppCompatActivity {
 
     private Button dischargeBn, rechargeBtn;
+    //session variables
+    private String username, phonenumber, email, fullname, location, id;
 
 
-    //Staging URLS
-    protected String discharge_url = "http://192.168.43.20:80/hbc/discharge_patient.php";
-    protected String readmit_url = "http://192.168.43.20:80/hbc/readmit_patient.php";
-    String url = "http://192.168.43.20:80/hbc/populate_patient.php";
-    String url2 = "http://192.168.43.20:80/hbc/populate_patient2.php";
+    //Staging URLS staging
+    //protected String discharge_url = "http://192.168.1.150:8080/hbc/discharge_patient.php";
+    //protected String readmit_url = "http://192.168.1.150:8080/hbc/readmit_patient.php";
+    //String url = "http://192.168.1.150:8080/hbc/populate_patient.php";
+    //String url2 = "http://192.168.1.150:8080/hbc/populate_patient2.php";
 
-   /* //Production
-    protected String discharge_url = "https://home-based-care.herokuapp.com/discharge_patient.php";
-    protected String readmit_url = "https://home-based-care.herokuapp.com/readmit_patient.php";
-    String url = "https://home-based-care.herokuapp.com/populate_patient.php";
-    String url2 = "https://home-based-care.herokuapp.com/populate_patient2.php"; */
+   //Production
+    //protected String discharge_url = "https://home-based-care.herokuapp.com/discharge_patient.php";
+    protected String discharge_url = "https://maendeleotech.com/hbc/discharge_patient.php";
+    //protected String readmit_url = "https://home-based-care.herokuapp.com/readmit_patient.php";
+    protected String readmit_url = "https://maendeleotech.com/hbc/readmit_patient.php";
+    //String url = "https://home-based-care.herokuapp.com/populate_patient.php";
+    //String url = "https://maendeleotech.com/hbc/populate_patient.php";
+    //String url2 = "https://home-based-care.herokuapp.com/populate_patient2.php";
+    //String url2 = "https://maendeleotech.com/hbc/populate_patient2.php";
 
 
     String selected_patient;
@@ -332,6 +339,11 @@ public class DischargeActivity extends AppCompatActivity {
     private void displaySpinnerPatient() {
         requestQueue = Volley.newRequestQueue(this);
         spinnerPatient = findViewById(R.id.spinnerpatient);
+
+        //sessions
+        function_get_shared_preferences();
+        //String url = "http://192.168.1.150:8080/hbc/api/location/read_patients.php?p_location="+location;
+        String url = "https://maendeleotech.com/hbc/api/location/read_patients.php?p_location="+location;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -384,6 +396,11 @@ public class DischargeActivity extends AppCompatActivity {
     private void displaySpinnerPatient2() {
         requestQueue = Volley.newRequestQueue(this);
         spinnerPatient2 = findViewById(R.id.spinnerpatient2);
+        //call the funtion
+        function_get_shared_preferences();
+        //String url2 = "http://192.168.1.150:8080/hbc/api/location/read_patients2.php?p_location="+location;
+        String url2 = "https://maendeleotech.com/hbc/api/location/read_patients2.php?p_location="+location;
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 url2, null, new Response.Listener<JSONObject>() {
             @Override
@@ -428,6 +445,20 @@ public class DischargeActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+
+    //mehtod for get session function
+    private void function_get_shared_preferences(){
+        //variables caputring session in shared preferences
+        SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.MYPREFERENCES_LOGIN, Context.MODE_PRIVATE);
+        username = sharedpreferences.getString("username", null);
+        phonenumber = sharedpreferences.getString("phonenumber", null);
+        email = sharedpreferences.getString("email", null);
+        fullname = sharedpreferences.getString("fullname", null);
+        location = sharedpreferences.getString("location", null);
+        id = sharedpreferences.getString("id", null);
+        //end shared preferences
     }
 
 

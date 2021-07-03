@@ -55,16 +55,19 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
     private String username, phonenumber, email, fullname, location, id;
 
    //Staging URLS
-    protected String UploadUrl = "http://192.168.43.20:80/hbc/uploadimage.php";
+   /*protected String UploadUrl = "http://192.168.1.150:8080/hbc/uploadimage.php";
     //variables of the dropdown list
-    private String urlx = "http://192.168.43.20:80/hbc/images/";
-    //String url = "http://192.168.43.20:80/hbc/populate_patient.php";
+    private String urlx = "http://192.168.1.150:8080/hbc/images/";
+   // String url = "http://192.168.1.150:8080/hbc/populate_patient.php"; */
 
 
-   /*//Production
-    protected String UploadUrl = "https://home-based-care.herokuapp.com/uploadimage.php";
-    private String urlx = "https://home-based-care.herokuapp.com/images/";
-    String url = "https://home-based-care.herokuapp.com/populate_patient.php"; */
+   //Production
+   //protected String UploadUrl = "https://home-based-care.herokuapp.com/uploadimage.php";
+    protected String UploadUrl = "https://maendeleotech.com/hbc/uploadimage.php";
+    //private String urlx = "https://home-based-care.herokuapp.com/images/";
+    private String urlx = "https://maendeleotech.com/hbc/images/";
+    //String url = "https://home-based-care.herokuapp.com/populate_patient.php";
+    //String url = "https://maendeleotech.com/hbc/populate_patient.php";
 
     String selected_patient;
 
@@ -114,7 +117,8 @@ public class UploadImageActivity extends AppCompatActivity implements View.OnCli
 
         //calling the session method
         function_get_shared_preferences();
-        String url = "http://192.168.43.20:80/hbc/api/location/read_patients.php?p_location="+location;
+       //String url = "http://192.168.1.150:8080/hbc/api/location/read_patients.php?p_location="+location;
+       String url = "https://maendeleotech.com/hbc/api/location/read_patients.php?p_location="+location;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 url, null, new Response.Listener<JSONObject>() {

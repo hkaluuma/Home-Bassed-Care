@@ -66,9 +66,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //staging URL
     //private final String JSON_URL="http://192.168.43.20:80/hbc/patients.php";
-   //private final String JSON_URL="http://192.168.43.20/hbc/api/location/read_single.php?p_location="+location;
     //Production URL
     //private final String JSON_URL="https://home-based-care.herokuapp.com/patients.php";
+    //private final String JSON_URL="https://maendeleotech.com/hbc/patients.php";
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
     private List<Anime> listAnime;
@@ -184,7 +184,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void jsonrequest() {
         //getting the session and url
         function_get_shared_preferences();
-        String JSON_URL="http://192.168.43.20/hbc/api/location/read_single.php?p_location="+location;
+        //String JSON_URL="http://192.168.1.150:8080/hbc/api/location/read_single.php?p_location="+location;
+        String JSON_URL="https://maendeleotech.com/hbc/api/location/read_single.php?p_location="+location;
+
+        /******************** try catch needed here ******************/
         request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

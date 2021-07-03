@@ -51,14 +51,17 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
             selected_fatigue, selected_runnynose, selected_diarrhea, selected_throat;
     //private session string variables
     private String username, phonenumber, email, fullname, location, id;
+    String patient_id;
 
    //string for URL staging
-    //String url = "http://192.168.43.20:80/hbc/populate_patient.php";
-    String checkup_url="http://192.168.43.20:80/hbc/checkup.php";
+    //String url = "http://192.168.1.150:8080/hbc/populate_patient.php";
+    //String checkup_url="http://192.168.1.150:8080/hbc/checkup.php";
 
     //string for URL production
-    /*String url = "https://home-based-care.herokuapp.com/populate_patient.php";
-    String checkup_url="https://home-based-care.herokuapp.com/checkup.php"; */
+    //String url = "https://home-based-care.herokuapp.com/populate_patient.php";
+    //String url = "https://maendeleotech.com/hbc/populate_patient.php";
+    //String checkup_url="https://home-based-care.herokuapp.com/checkup.php";
+    String checkup_url="https://maendeleotech.com/hbc/checkup.php";
 
     Spinner spinnerPatient;
     ArrayList<String> patientList = new ArrayList<>();
@@ -190,7 +193,8 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
         spinnerPatient = findViewById(R.id.spinnerpatient);
         //calling the shared preferences method and url in api
         function_get_shared_preferences();
-        String url = "http://192.168.43.20:80/hbc/api/location/read_patients.php?p_location="+location;
+        //String url = "http://192.168.1.150:8080/hbc/api/location/read_patients.php?p_location="+location;
+        String url = "https://maendeleotech.com/hbc/api/location/read_patients.php?p_location="+location;
         //URL IS THE LINK AS a global variable
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 url, null, new Response.Listener<JSONObject>() {
@@ -202,6 +206,7 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
                     for(int i = 0; i<jsonArray.length(); i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         String patientName = jsonObject.optString("p_fullnames");
+                        patient_id = jsonObject.optString("patient_id");
                         patientList.add(patientName);
                         patientAdapter = new ArrayAdapter<>(CheckupActivity.this,
                                // android.R.layout.simple_spinner_item, patientList);
@@ -615,6 +620,7 @@ public class CheckupActivity extends AppCompatActivity implements AdapterView.On
                     nameValuePairs.add(new BasicNameValuePair("biz_nose", selected_runnynose));
                     nameValuePairs.add(new BasicNameValuePair("biz_diarrhea", selected_diarrhea));
                     nameValuePairs.add(new BasicNameValuePair("biz_throat", selected_throat));
+                    nameValuePairs.add(new BasicNameValuePair("biz_patient_id", patient_id));
 
                     httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                     HttpResponse response = httpclient.execute(httppost);
